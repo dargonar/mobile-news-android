@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="DuplicateIds">
+        <ignore path="res/layout/newhome.xml" />
+    </issue>
+    <issue id="HardcodedText">
+        <ignore path="res/layout/newhome.xml" />
+    </issue>
+    <issue id="UselessParent">
+        <ignore path="res/layout/newhome.xml" />
+    </issue>
+</lint>

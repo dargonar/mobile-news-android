@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:ignore="ContentDescription" >
+    
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#3479c9" >
+
+        <ImageButton
+            android:id="@+id/btn_logo_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/logo" />
+
+        <ImageButton
+            android:id="@+id/btn_back_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:paddingLeft="4dp"
+            android:src="@drawable/back" />
+
+        <ImageButton
+            android:id="@+id/btn_share_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:paddingRight="4dp"
+            android:src="@drawable/share" />
+
+    </RelativeLayout>
+
+	<com.diventi.mobipaper.article.ArticleWebView
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/article_webview"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_below="@+id/header" />
+
+    <com.diventi.mobipaper.ui.ToolbarView android:id="@+id/toolbar" android:background="@drawable/popup_top_dark" 
+        android:paddingLeft="8.0dip" android:paddingRight="8.0dip" 
+        android:focusable="true" android:layout_width="fill_parent" 
+        android:layout_height="60.0dip" android:layout_alignParentBottom="true">
+
+            <ImageButton
+                android:id="@+id/btn_options_aplus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:src="@drawable/icon_increasetext_toolbar_selected" />
+
+            <ImageButton
+                android:id="@+id/btn_options_aless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:src="@drawable/icon_decreasetext_toolbar_default" />
+    
+    </com.diventi.mobipaper.ui.ToolbarView>
+
+    <ProgressBar
+        android:id="@+id/img_article_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" 
+        android:visibility="invisible"/>
+    
+</RelativeLayout>
