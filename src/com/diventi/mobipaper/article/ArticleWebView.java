@@ -1,5 +1,6 @@
 package com.diventi.mobipaper.article;
 
+import com.diventi.mobipaper.BaseWebView;
 import com.diventi.mobipaper.MobiPaperApp;
 import com.diventi.mobipaper.gallery.GalleryActivity;
 import com.diventi.mobipaper.ui.ToolbarProvider;
@@ -19,89 +20,18 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 @SuppressLint("SetJavaScriptEnabled")
-public class ArticleWebView extends WebView
+public class ArticleWebView extends BaseWebView
 {
   private static final String TAG       = "ArticleWebView";
 
   private static GestureDetector mGestureDetector;
   private Context mContext;
   private float mTextSize = 1.0f;
-  
-  private WebViewClient mWebViewClient = new WebViewClient()
-  {
-    public void onLoadResource(WebView view, String url) {
-      
-    }
-    
-    public boolean shouldOverrideUrlLoading(WebView view, String url) 
-    {
-      //HACK: por que cuando viene el evento shouldOverrideUrlLoading y tenes un video://http:// lo cambia a video://http// 
-      url = url.replace("http//", "http://");
 
-      if( url.startsWith("noticia://") )
-      {
-        Intent articleIntent = new Intent(mContext, ArticleActivity.class);
-        articleIntent.putExtra("url", url);
-        mContext.startActivity(articleIntent);
-        return true;
-      }
-      
-      if( url.startsWith("video://"))
-      {
-        Intent youtubeIntent;
-        if( MobiPaperApp.isYoutubeInstalled() )
-          youtubeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + url.substring(url.indexOf("v=")+2)));
-        else {
-          youtubeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url.substring(8)));
-        }
-       
-        mContext.startActivity(youtubeIntent);
-        return true;
-      }
-
-      if( url.startsWith("audio://"))
-      {
-        Intent audioIntent = new Intent(android.content.Intent.ACTION_VIEW);   
-        audioIntent.setDataAndType(Uri.parse(url.substring(8)), "audio/*");   
-        audioIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        mContext.startActivity(audioIntent); 
-        return true;
-      }
-
-      if( url.startsWith("galeria://") )
-      {
-        String[] urls = url.substring(10).split(";");        
-        Intent galleryIntent = new Intent(mContext, GalleryActivity.class);
-        galleryIntent.putExtra("urls", urls);
-        mContext.startActivity(galleryIntent);
-        return true;
-      }
-      
-      return false;
-    }
-
-    public void onPageFinished(WebView view, String url)
-    {
-      updateTextSize();
-    }
-
-    public void onPageStarted(WebView paramWebView, String paramString, Bitmap paramBitmap)
-    {
-      
-    }
-
-    public void onReceivedError(WebView paramWebView, int paramInt, String paramString1, String paramString2)
-    {
-      
-    }
-    
-  };
- 
   public void updateTextSize() {
     String js_text = String.format("javascript:text_size('%.2f', '%.2f')", mTextSize, mTextSize+0.2f);
     loadUrl(js_text);
   }
-  
   
   public ArticleWebView(Context context, AttributeSet attrs)
   {
@@ -118,12 +48,6 @@ public class ArticleWebView extends WebView
     mContext = context;
     
     getGestureDetector(getContext());
-    getSettings().setJavaScriptEnabled(true);
-
-    //initJavascriptInterface();
-
-    setInitialScale(100);
-    setWebViewClient(this.mWebViewClient);
   }
   
   void onTextSizeUp() {
@@ -134,6 +58,59 @@ public class ArticleWebView extends WebView
   void onTextSizeDown() {
     mTextSize = (mTextSize >= 1.0f) ? mTextSize -0.05f : mTextSize;
     updateTextSize();
+  }
+  
+  public void onPageFinished(WebView view, String url)
+  {
+    super.onPageFinished(view, url);
+    updateTextSize();
+  }
+  
+  public boolean shouldOverrideUrlLoading(WebView view, String url) 
+  {
+    //HACK: por que cuando viene el evento shouldOverrideUrlLoading y tenes un video://http:// lo cambia a video://http// 
+    url = url.replace("http//", "http://");
+
+    if( url.startsWith("noticia://") )
+    {
+      Intent articleIntent = new Intent(mContext, ArticleActivity.class);
+      articleIntent.putExtra("url", url);
+      mContext.startActivity(articleIntent);
+      return true;
+    }
+    
+    if( url.startsWith("video://"))
+    {
+      Intent youtubeIntent;
+      if( MobiPaperApp.isYoutubeInstalled() )
+        youtubeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + url.substring(url.indexOf("v=")+2)));
+      else {
+        youtubeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url.substring(8)));
+      }
+     
+      mContext.startActivity(youtubeIntent);
+      return true;
+    }
+
+    if( url.startsWith("audio://"))
+    {
+      Intent audioIntent = new Intent(android.content.Intent.ACTION_VIEW);   
+      audioIntent.setDataAndType(Uri.parse(url.substring(8)), "audio/*");   
+      audioIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+      mContext.startActivity(audioIntent); 
+      return true;
+    }
+
+    if( url.startsWith("galeria://") )
+    {
+      String[] urls = url.substring(10).split(";");        
+      Intent galleryIntent = new Intent(mContext, GalleryActivity.class);
+      galleryIntent.putExtra("urls", urls);
+      mContext.startActivity(galleryIntent);
+      return true;
+    }
+    
+    return false;
   }
   
   private GestureDetector getGestureDetector(Context paramContext)
@@ -154,7 +131,7 @@ public class ArticleWebView extends WebView
 
         public boolean onSingleTapConfirmed(MotionEvent paramMotionEvent)
         {
-          //Log.d(TAG, "Aca va un tap");
+          //Log.e(TAG, "Aca va un tap");
           if (ToolbarProvider.getInstance().getToolbar() != null)
             ToolbarProvider.getInstance().getToolbar().onTap();
           return false;

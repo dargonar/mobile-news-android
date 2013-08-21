@@ -18,7 +18,7 @@
         <activity
             android:name="com.diventi.mobipaper.HomeActivity"
             android:screenOrientation="portrait"
-            android:label="El Dia" 
+			android:label="El Dia" 
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,6 @@
         </activity>
         
         <activity android:name="com.diventi.mobipaper.article.ArticleActivity"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             />
 
@@ -36,7 +35,6 @@
             />
 		
 		<activity android:name="com.diventi.mobipaper.classified.ClassifiedActivity"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             />
 		

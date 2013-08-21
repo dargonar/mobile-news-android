@@ -1,37 +1,27 @@
 package com.diventi.mobipaper;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.SocketException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.apache.commons.io.IOUtils;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlSerializer;
-
 import android.net.Uri;
-import android.util.Log;
-import android.util.Xml;
-
+import android.util.Pair;
 import com.diventi.mobipaper.cache.DiskCache;
-import com.diventi.mobipaper.xml.ExtractAndRebuildXmlParser;
 import com.diventi.mobipaper.xml.MobiImage;
 import com.diventi.utils.Network;
 import com.diventi.utils.NoNetwork;
@@ -41,24 +31,57 @@ public class ScreenManager {
 
   private static final String TAG = "ScreenManager"; 
   
+  private Boolean m_isBig = false;
+  public Boolean IsBig() { return m_isBig; }
+  public void IsBig(Boolean isBig) { m_isBig = isBig; } 
+
+  private Boolean m_isLandScape = false;
+  public Boolean IsLandscape() { return m_isLandScape; }
+  public void IsLandscape(Boolean isBig) { m_isLandScape = isBig; } 
+  
   public static final String IMAGE_GROUP_PREFIX  = "mi";
   public static final String ARTICLE_PREFIX      = "a";
   public static final String SECTION_PREFIX      = "s";
   public static final String MENU_PREFIX         = "m";
   public static final String IMAGE_PREFIX        = "i";
   public static final String CLASSIFIED_PREFIX   = "cf";
+  public static final String FUNEBRES_PREFIX     = "f";
+  public static final String FARMACIAS_PREFIX    = "far";
+  public static final String CARTELERA_PREFIX    = "car";  
   
   private static String MAIN_STYLESHEET          = "1_main_list.xsl";
   private static String NOTICIA_STYLESHEET       = "3_new.xsl";
   private static String SECTIONS_STYLESHEET      = "2_section_list.xsl";
   private static String MENU_STYLESHEET          = "4_menu.xsl";
   private static String CLASIFICADOS_STYLESHEET  = "5_clasificados.xsl";
-
+  private static String FUNEBRES_STYLESHEET      = "6_funebres.xsl";
+  private static String FARMACIAS_STYLESHEET     = "7_farmacias.xsl";
+  private static String CARTELERA_STYLESHEET     = "8_cartelera.xsl";
+  
+  
+  private static String BIG_MAIN_STYLESHEET                 = "1_tablet_main_list.xsl";
+  private static String BIG_SECTION_STYLESHEET              = "1_tablet_section_list.xsl";
+  private static String BIG_SECTION_NEWS_PT_STYLESHEET      = "2_tablet_noticias_seccion_portrait.xsl";
+  private static String BIG_SECTION_NEWS_LS_STYLESHEET      = "2_tablet_noticias_seccion_landscape.xsl";
+  private static String BIG_MAIN_NEWS_PT_STYLESHEET         = "2_tablet_noticias_index_portrait.xsl";
+  private static String BIG_MAIN_NEWS_LS_STYLESHEET         = "2_tablet_noticias_index_landscape.xsl";
+  private static String BIG_NOTICIA_PT_STYLESHEET           = "3_tablet_new_global.xsl";
+  private static String BIG_NOTICIA_LS_STYLESHEET           = "3_tablet_new_landscape.xsl";
+  private static String BIG_MENU_STYLESHEET                 = "4_tablet_menu_secciones.xsl";
+  private static String BIG_CLASIFICADOS_STYLESHEET         = "5_tablet_clasificados.xsl";
+  private static String BIG_FUNEBRES_STYLESHEET             = "6_tablet_funebres.xsl";
+  private static String BIG_FARMACIAS_STYLESHEET            = "7_tablet_farmacias.xsl";
+  private static String BIG_CARTELERA_STYLESHEET            = "8_tablet_cartelera.xsl";
+  
+  
   private static String MAIN_URL          = "http://www.eldia.com.ar/rss/index.aspx";
   private static String NOTICIA_URL       = "http://www.eldia.com.ar/rss/noticia.aspx?id=%s";
   private static String SECTIONS_URL      = "http://www.eldia.com.ar/rss/index.aspx?seccion=%s";
   private static String MENU_URL          = "http://www.eldia.com.ar/rss/secciones.aspx";
-  private static String CLASIFICADOS_URL  = "http://www.eldia.com.ar/mc/clasi_rss.aspx?idr=%s&app=1";
+  private static String CLASIFICADOS_URL  = "http://www.eldia.com.ar/mc/clasi_rss_utf8.aspx?idr=%s&app=1";
+  private static String FUNEBRES_URL      = "http://www.eldia.com.ar/mc/fune_rss_utf8.aspx";
+  private static String CARTELERA_URL     = "http://www.eldia.com.ar/extras/carteleradecine_txt.aspx";
+  private static String FARMACIAS_URL     = "http://www.eldia.com.ar/extras/farmacias_txt.aspx";
   
   public String getArticle(String url, boolean useCache) throws IOException, SAXException, ParserConfigurationException, URISyntaxException, NoNetwork {
     return getScreen(url, useCache, true, ScreenManager.ARTICLE_PREFIX);
@@ -75,6 +98,19 @@ public class ScreenManager {
   public String getClasifieds(String url, boolean useCache) throws IOException, SAXException, ParserConfigurationException, URISyntaxException, NoNetwork {
     return getScreen(url, useCache, false, ScreenManager.CLASSIFIED_PREFIX);
   }
+
+  public String getFunebres(String url, boolean useCache) throws IOException, SAXException, ParserConfigurationException, URISyntaxException, NoNetwork {
+    return getScreen(url, useCache, false, ScreenManager.FUNEBRES_PREFIX);
+  }
+
+  public String getCartelera(String url, boolean useCache) throws IOException, SAXException, ParserConfigurationException, URISyntaxException, NoNetwork {
+    return getScreen(url, useCache, false, ScreenManager.CARTELERA_PREFIX);
+  }
+
+  public String getFarmacias(String url, boolean useCache) throws IOException, SAXException, ParserConfigurationException, URISyntaxException, NoNetwork {
+    return getScreen(url, useCache, false, ScreenManager.FARMACIAS_PREFIX);
+  }
+
   
   public long sectionDate(String url) {
 
@@ -89,8 +125,8 @@ public class ScreenManager {
     String tmp = getScreenPlain(url, useCache, processImages, prefix);
     long t1 = System.currentTimeMillis();
 
-    //Log.d(TAG, "----------> ELAPSED <---------");
-    //Log.d(TAG, 
+    //Log.e(TAG, "----------> ELAPSED <---------");
+    //Log.e(TAG, 
     //String.format("----------> %.2f s <---------", (t1 - t0)/1000.0 ));
     
     //System.out.println("That took " + (endTime - startTime) + " milliseconds");
@@ -103,7 +139,7 @@ public class ScreenManager {
     DiskCache cache = DiskCache.getInstance();
     String key = SHA1.sha1(url);
         
-    if ( useCache == true )
+    if( useCache == true )
     {
       byte[] html = cache.get(key, prefix);
       if(html != null)
@@ -114,92 +150,61 @@ public class ScreenManager {
       throw new NoNetwork();
     }
       
-
-    long t0 = System.currentTimeMillis();
-    byte[] xml = downloadUrl( getXmlHttpUrl(url) );
-    long t1 = System.currentTimeMillis();
-
-    //Log.d(TAG, "----------> ELAPSED NETWORK <---------");
-    //Log.d(TAG, 
-    //String.format("----------> %.2f s <---------", (t1 - t0)/1000.0 ));
-
-    //hack: eldia
-    String encoding = "UTF-8";
-    
-    String packageName = MobiPaperApp.getContext().getPackageName();
-    if(url.startsWith("clasificados") && packageName.equals("com.diventi.eldia"))
-      encoding = "ISO-8859-1";
-    
-    //FileUtils.writeByteArrayToFile(new File(DiskCache.getInstance().getFolder(), String.format("pre-beto-%s.xml",encoding)), xml);
-    
-    //TODO:Sanitize
-    //
-    
-    if(processImages) {
-      t0 = System.currentTimeMillis();
-      
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      SAXParser parser = factory.newSAXParser();
-      
-      InputSource reader = new InputSource( new InputStreamReader( new ByteArrayInputStream(xml), encoding) );
-      
-      ByteArrayOutputStream out = new ByteArrayOutputStream();
-      XmlSerializer serializer = Xml.newSerializer();
-      serializer.setOutput(out, "utf-8");
-      
-      ExtractAndRebuildXmlParser extractor = new ExtractAndRebuildXmlParser(serializer, url); 
-      parser.parse(reader, extractor);
-      
-      serializer.flush();
-      out.close();
-      
-      xml = out.toByteArray();
-      
-      //FileUtils.writeByteArrayToFile(new File(DiskCache.getInstance().getFolder(), String.format("post-beto-%s.xml",encoding)), xml);
-      
-      ByteArrayOutputStream mout = new ByteArrayOutputStream();
-      ObjectOutputStream oout = new ObjectOutputStream(mout);
-      oout.writeObject(extractor.getImages());
-      byte[] mobiimgs = mout.toByteArray();
-      cache.put(key, mobiimgs, ScreenManager.IMAGE_GROUP_PREFIX);
-      
-      t1 = System.currentTimeMillis();
-
-      //Log.d(TAG, "----------> ELAPSED IMAGES <---------");
-      //Log.d(TAG, 
-      //String.format("----------> %.2f s <---------", (t1 - t0)/1000.0 ));
-
-    }
-
-    t0 = System.currentTimeMillis();
-    HtmlGenerator generator = new HtmlGenerator();
-    byte[] html = generator.generate(xml, getStyleSheet(url), encoding);
-    t1 = System.currentTimeMillis();
-    
-    //Log.d(TAG, "----------> ELAPSED HTML <---------");
-    //Log.d(TAG, 
-    //String.format("----------> %.2f s <---------", (t1 - t0)/1000.0 ));
-
-    cache.put(key, html, prefix);
+    downloadHtml(url, key, prefix);
+    byte[] html = cache.get(key, prefix);
     return new String(html,"utf-8");
   }
 
-  public ArrayList<MobiImage> getPendingImages(String url) throws StreamCorruptedException, IOException, ClassNotFoundException {
+  void downloadHtml(String iurl, String key, String prefix) throws IOException
+  {
+    String urlParameters = String.format("url=%s&appid=com.diventi.castellanos&size=small&ptls=pt", iurl);
+    //URL url = new URL("http://www.diariosmoviles.com.ar/ws/screen");
+    URL url = new URL("http://192.168.1.14:8080/ws/screen");
+    
+    HttpURLConnection con = (HttpURLConnection)url.openConnection();
+    
+    con.setDoOutput(true);
+    con.setDoInput(true);
+    con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+    con.setRequestProperty("charset", "utf-8");
+    con.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+    con.setRequestMethod("POST");
+    
+    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+    wr.writeBytes(urlParameters);
+    wr.flush();
+
+    InputStream is = con.getInputStream();
+
+    ZipInputStream zis = new ZipInputStream(is);
+    ZipEntry entry;
+
+    DiskCache cache = DiskCache.getInstance();
+    while ((entry = zis.getNextEntry()) != null)
+    {
+      cache.put(key, IOUtils.toByteArray(zis), prefix);
+    }
+    
+    return;
+  }
+  
+  public ArrayList<String> getPendingImages(String url) throws StreamCorruptedException, IOException, ClassNotFoundException {
     
     DiskCache cache = DiskCache.getInstance();
     String key = SHA1.sha1(url);
     
     byte[] mis = cache.get(key, ScreenManager.IMAGE_GROUP_PREFIX);
-    ByteArrayInputStream min = new ByteArrayInputStream(mis);
-    ObjectInputStream oin = new ObjectInputStream(min);
+
+    ArrayList<String> images = new ArrayList<String>();
+    String tmp = new String(mis);
     
-    @SuppressWarnings("unchecked")
-    ArrayList<MobiImage> images = (ArrayList<MobiImage>)oin.readObject();
+    for(String i : tmp.split(",") )
+      images.add(i);
     
-    Iterator<MobiImage> iter = images.iterator();
+    Iterator<String> iter = images.iterator();
     while(iter.hasNext()) {
-      MobiImage image = iter.next();
-      if(cache.exists(image.localUrl, ScreenManager.IMAGE_PREFIX)) {
+      String image = iter.next();
+      if(cache.exists(image, ScreenManager.IMAGE_PREFIX)) {
         iter.remove();
       }
     }
@@ -226,6 +231,19 @@ public class ScreenManager {
     return screenExists(url, ScreenManager.CLASSIFIED_PREFIX);
   }
 
+  public boolean funebresExists(String url) {
+    return screenExists(url, ScreenManager.FUNEBRES_PREFIX);
+  }
+
+  public boolean carteleraExists(String url) {
+    return screenExists(url, ScreenManager.CARTELERA_PREFIX);
+  }
+
+  public boolean farmaciasExists(String url) {
+    return screenExists(url, ScreenManager.FARMACIAS_PREFIX);
+  }
+
+  
   public boolean screenExists(String url, String prefix) {
     DiskCache cache = DiskCache.getInstance();
     String key = SHA1.sha1(url);
@@ -234,8 +252,73 @@ public class ScreenManager {
   }
   
   
+  private String getStyleSheetBig(String url) throws MalformedURLException {
+    
+    if( url.startsWith("menu_section://main") ) {
+      return BIG_MAIN_NEWS_PT_STYLESHEET;
+    }
+
+    if( url.startsWith("menu_section://") ) {
+      return IsLandscape() ? BIG_SECTION_NEWS_LS_STYLESHEET : BIG_SECTION_NEWS_PT_STYLESHEET;
+    }
+
+    if( url.startsWith("ls_menu_section://main") ) {
+      return BIG_MAIN_NEWS_LS_STYLESHEET;
+    }
+    
+    if( url.startsWith("ls_menu_section://") ) {
+      return BIG_SECTION_NEWS_LS_STYLESHEET;
+    }
+
+    if( url.startsWith("section://main") ) {
+      return BIG_MAIN_STYLESHEET;
+    }
+    
+    if( url.startsWith("section://") ) {
+      return BIG_SECTION_STYLESHEET;
+    }    
+        
+    if( url.startsWith("ls_section://") ) {
+      return SECTIONS_STYLESHEET;
+    }    
+
+    if( url.startsWith("noticia://") ) {
+      return BIG_NOTICIA_PT_STYLESHEET;
+    }    
+
+    if( url.startsWith("ls_noticia://") ) {
+      return BIG_NOTICIA_LS_STYLESHEET;
+    }    
+    
+    if( url.startsWith("clasificados://") ) {
+      return BIG_CLASIFICADOS_STYLESHEET;
+    }    
+
+    if( url.startsWith("funebres://") ) {
+      return BIG_FUNEBRES_STYLESHEET;
+    }    
+        
+    if( url.startsWith("menu://") ) {
+      return BIG_MENU_STYLESHEET;
+    }  
+
+    if( url.startsWith("farmacia://") ) {
+      return BIG_FARMACIAS_STYLESHEET;
+    }  
+        
+    if( url.startsWith("cartelera://") ) {
+      return BIG_CARTELERA_STYLESHEET;
+    }  
+        
+    throw new MalformedURLException();
+    
+  }
+  
   private String getStyleSheet(String url) throws MalformedURLException {
 
+    if( IsBig() )
+      return getStyleSheetBig(url);
+    
     if( url.startsWith("section://main") ) {
       return MAIN_STYLESHEET;
     }
@@ -255,9 +338,22 @@ public class ScreenManager {
     if( url.startsWith("menu://") ) {
       return MENU_STYLESHEET;
     }
+    
+    if( url.startsWith("cartelera://") ) {  
+      return CARTELERA_STYLESHEET;
+    }
+
+    if( url.startsWith("funebres://") ) {  
+      return FUNEBRES_STYLESHEET;
+    }
+
+    if( url.startsWith("farmacia://") ) {  
+      return FARMACIAS_STYLESHEET;
+    }
 
     throw new MalformedURLException();
   }
+ 
   
   private String getXmlHttpUrl(String url) throws URISyntaxException {
     
@@ -282,10 +378,23 @@ public class ScreenManager {
     if( url.startsWith("menu://") ) {
       return String.format(MENU_URL);
     }
-  
+
+    if( url.startsWith("funebres://") ) {
+      return String.format(FUNEBRES_URL);
+    }
+
+    if( url.startsWith("farmacia://") ) {
+      return String.format(FARMACIAS_URL);
+    }
+
+    if( url.startsWith("cartelera://") ) {
+      return String.format(CARTELERA_URL);
+    }
+    
     throw new URISyntaxException("","");
   }
 
+  /*
   private byte[] downloadUrl(String uri) throws MalformedURLException, IOException {
     
     URL url = new URL(uri);
@@ -302,18 +411,29 @@ public class ScreenManager {
       throw new SocketException("invalid response");
     }
     
-    //SKIP BOM
+    //HACK -- skip bom
     if(tmp[0] ==  -17 && tmp[1] == -69 && tmp[2] == -65)
     {
       byte[] tmp2 = new byte[tmp.length-3];
       System.arraycopy(tmp, 3, tmp2, 0, tmp.length-3);
       tmp = tmp2;
     }
-    
+
+    //HACK -- wrap xml inside "*_txt.aspx" urls
+    if(uri.endsWith("_txt.aspx"))
+    {
+      SimpleDateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss ZZ");
+      String fake_xml = String.format("<rss xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:media=\"http://search.yahoo.com/mrss/\" xmlns:news=\"http://www.diariosmoviles.com.ar/news-rss/\" version=\"2.0\"><channel><pubDate>%s -0300</pubDate><item><![CDATA[%s]]></item></channel></rss>",
+          df.format(new Date()), new String(tmp));
+      
+      tmp = fake_xml.getBytes();
+    }
+
     //FileUtils.writeByteArrayToFile(new File( DiskCache.getInstance().getFolder(), "down.xml" ), tmp);
     
     return tmp;
   }
+  */
   
   public File getPage(String url) {
     DiskCache cache = DiskCache.getInstance();

@@ -30,7 +30,7 @@
         android:layout_height="fill_parent"
         app:actions_layout="@layout/home_actions"
         app:actions_spacing="0dp"
-        app:spacing_type="right_offest"
+        app:spacing_type="actions_width"
  		app:content_layout="@layout/new_home_content"
         />
 

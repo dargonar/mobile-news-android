@@ -153,7 +153,7 @@ public class ToolbarView extends RelativeLayout implements Animation.AnimationLi
         new StringBuilder(String.valueOf(str)).append(" visiblity:Invisible").toString();
     }
 
-    //Log.d(TAG, str);
+    //Log.e(TAG, str);
     
     invalidate();
     switch (this.mAnimState)
@@ -184,7 +184,7 @@ public class ToolbarView extends RelativeLayout implements Animation.AnimationLi
 
   public void showToolbar(boolean show)
   {
-    //Log.d(TAG, "aca vamos " + Boolean.toString(show));
+    //Log.e(TAG, "aca vamos " + Boolean.toString(show));
     if (show && mAnimState == ANIM_STATE_HIDDEN)
     {
       mAnimState = ANIM_STATE_VISIBLE;

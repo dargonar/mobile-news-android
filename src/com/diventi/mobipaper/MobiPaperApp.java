@@ -17,7 +17,7 @@ public class MobiPaperApp extends Application {
   private static Context mContext;  
   private static DiskCache mDiskCache;
   private static boolean mYoutubeInstalled;
-  
+    
   @Override
   public void onCreate() {
     super.onCreate();

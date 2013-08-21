@@ -1,14 +1,6 @@
 package com.diventi.mobipaper.article;
 
-import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
 import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
-
-import com.diventi.eldia.R;
-
-import com.diventi.mobipaper.BaseActivity;
-import com.diventi.mobipaper.ScreenManager;
-import com.diventi.mobipaper.ui.ToolbarProvider;
-import com.diventi.mobipaper.ui.ToolbarView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +8,17 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+
+import com.diventi.eldia.R;
+import com.diventi.mobipaper.BaseActivity;
+import com.diventi.mobipaper.BaseWebView;
+import com.diventi.mobipaper.ScreenManager;
+import com.diventi.mobipaper.ui.ToolbarProvider;
+import com.diventi.mobipaper.ui.ToolbarView;
 
 public class ArticleActivity extends BaseActivity implements OnClickListener {
 
@@ -41,7 +38,7 @@ public class ArticleActivity extends BaseActivity implements OnClickListener {
 	  
 	  private boolean            mArticleShown;
 	  private ScreenManager      mScreenManager = new ScreenManager();
-
+	  
 	  @Override
     public void onCreate(Bundle savedInstanceState) {
         
@@ -94,7 +91,7 @@ public class ArticleActivity extends BaseActivity implements OnClickListener {
 
       mProgressBar = (ProgressBar)findViewById(R.id.img_article_loading);
       
-      mWebView = (WebView)findViewById(R.id.article_webview);
+      mWebView = (BaseWebView)findViewById(R.id.article_webview);
       mArticleWebView = (ArticleWebView)mWebView;
       mArticleWebView.setTextSize(text_size);
       
@@ -144,7 +141,7 @@ public class ArticleActivity extends BaseActivity implements OnClickListener {
   
     void saveTextSize() {
       float text_size = mArticleWebView.getTextSize();
-      //Log.d(TAG, String.format("saveTextSize: %.2f", text_size));
+      //Log.e(TAG, String.format("saveTextSize: %.2f", text_size));
       SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
       
       Editor editor = prefs.edit();
@@ -182,7 +179,7 @@ public class ArticleActivity extends BaseActivity implements OnClickListener {
         return;
       }
 
-      //Log.d(TAG, loadError.toString());
+      //Log.e(TAG, loadError.toString());
       
       showAlert("No se puede mostrar noticia", loadError);
     }

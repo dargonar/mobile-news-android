@@ -11,15 +11,20 @@ import com.diventi.mobipaper.ui.ActionsContentView;
 import com.diventi.utils.SHA1;
 import com.diventi.utils.TimeDiff;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class HomeActivity extends BaseActivity implements OnClickListener, SectionHandler {
@@ -27,7 +32,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
     private static final String TAG  = "HomeActivity";  
     
     private static String      MAIN_URL  = "section://main";
-    private static String      MENU_LEFT = "menu://left";
+    private static String      MENU_LEFT = "menu://";
   
 	  private ImageButton        mBtnOptions;
 	  private ImageButton        mBtnRefresh;
@@ -44,10 +49,24 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 	  private String mCurrentSectionUrl = MAIN_URL;
 	  
 	  @Override
+	  protected void onSaveInstanceState (Bundle outState) {
+	      super.onSaveInstanceState(outState);
+	      outState.putString("current_section", mCurrentSectionUrl);
+	  }
+	  
+	  @Override
     public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-
+	    
 	    setContentView(R.layout.home);
+	    
+	    if(savedInstanceState != null)
+	    {
+	      mCurrentSectionUrl = savedInstanceState.getString("current_section"); 
+	      onCreateEx(mCurrentSectionUrl);
+	      return;
+	    }
+	    
 	    checkHTMLResources();
 	  }
 
@@ -71,11 +90,11 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 
                 DiskCache cache = DiskCache.getInstance();
                 double cacheSize = cache.size();
-                //Log.d(TAG, String.format("cache size pre: %.2f Mb", cacheSize));
+                //Log.e(TAG, String.format("cache size pre: %.2f Mb", cacheSize));
                 if(cacheSize > cache.maxSize()) {
                   cache.purge();
                 }
-                //Log.d(TAG, String.format("cache size post: %.2f Mb", cacheSize));
+                //Log.e(TAG, String.format("cache size post: %.2f Mb", cacheSize));
 
               } catch (IOException e) {
                 htmlResourcesError = e;
@@ -97,6 +116,10 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
     
 	  Exception htmlResourcesError = null;
 	  public void onCreateEx() {
+	    onCreateEx(MAIN_URL);
+	  }
+	  
+	  public void onCreateEx(String url) {
 
 	    setupViews();
 	    
@@ -105,12 +128,12 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 	      return;
 	    }
 	    
-	    if( mScreenManager.sectionExists(MAIN_URL) ) {
-	      onUrlLoaded(MAIN_URL, true, null, ScreenManager.SECTION_PREFIX, false);
+	    if( mScreenManager.sectionExists(url) ) {
+	      onUrlLoaded(url, true, null, ScreenManager.SECTION_PREFIX, false);
 	      return;
 	    }
       
-	    loadSection(MAIN_URL, false, false);
+	    loadSection(url, false, false);
     }
 
 	  @Override
@@ -130,15 +153,10 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
         else
           showLoading(false);
         
-        //Mandamos a refrescar si vino de cache y es viejo
-        if(useCache == true && isOldThanSeconds(mScreenManager.sectionDate(url), 60*15) ) {
-          loadSection(url, false, fromUser);
-        }
-        
         return;
       }
 
-      //Log.d(TAG, loadError.toString());
+      //Log.e(TAG, loadError.toString());
       
       if(isSplashShowing())
         showSplashError(false, loadError);
@@ -162,15 +180,14 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
     protected void onWebViewLoaded(String url, boolean useCache) {
       
       //mostrar de cuando es la actualizacion
-      long section_date = mScreenManager.sectionDate(url);
-      String js = String.format("javascript:show_actualizado('%s')", TimeDiff.timeAgo(section_date));
-      mWebView.loadUrl(js);
+      if( url == MAIN_URL ) 
+      {
+        long section_date = mScreenManager.sectionDate(url);
+        String js = String.format("javascript:setTimeout(function(){show_actualizado('%s')},1000)", TimeDiff.timeAgo(section_date));
+        mWebView.loadUrl(js);
+      }
       
-      //Esta cargando la main desde red (refrescar menu)
-      if( url != MAIN_URL )
-        return;
-      
-      reloadMenu(useCache);
+      loadMenu();
     }
 
     private boolean isSplashShowing() {
@@ -202,35 +219,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
       
       mBtnOptions.setEnabled(true);
     }
-     
-    private void reloadMenu(boolean useCache) {
-      
-      if(useCache == true) {
-        loadMenu();
-        return;
-      }
-      
-      mBtnOptions.setEnabled(false);
-      
-      Thread t = new Thread() {
-        public void run() {
-          try {
-            mScreenManager.getMenu(false);
-          } catch (Exception e) {
-            //Log.e(TAG, e.toString());
-          }
-          
-          runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-              loadMenu();
-            }
-          });
-        }
-      };
-      t.run();
-    }
-
+    
     private void setupViews() {
       
       mSplash     = findViewById(R.id.splash);
@@ -252,16 +241,18 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
       mBtnRefresh.setOnClickListener(this);
       
       mActionsView = (ActionsContentView) findViewById(R.id.content);
-      mActionsView.setSwipingEnabled(false);
+      if(mActionsView != null)
+        mActionsView.setSwipingEnabled(false);
 
       mImgRefreshLoading = (ImageView)findViewById(R.id.img_refresh_loading);
 
       mMenuWebView = (MenuWebView)findViewById(R.id.menu_webview);
       mMenuWebView.setSectionHandler(this);
 
-      mWebView = (WebView)findViewById(R.id.feed_webview);
-      
+      mWebView = (BaseWebView)findViewById(R.id.feed_webview);
+
       ActionsContentProvider.getInstance().setActionView(mActionsView);
+      enableRotation(this);
     }
 
     public void onClick(View v) {
@@ -301,11 +292,15 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
     
     
     private void OnRefresh() {
-      
       if(mCurrentSectionUrl.startsWith("page://"))
         onShowPage(mCurrentSectionUrl);
-      else
+      else {
+        
+        if(mCurrentSectionUrl == MAIN_URL)
+          mBtnOptions.setEnabled(false);
+        
         loadSection(mCurrentSectionUrl, false, true);
+      }
     }
     
     private void OnOptions() {
@@ -336,12 +331,13 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
     
     @Override
     public void onShowPage(String url) {
-      mActionsView.showContent();
-      mCurrentSectionUrl =  url;
-
-      File file = mScreenManager.getPage(url);
-      String baseUrl = String.format("file://%s", file.getAbsolutePath());
-      mWebView.loadUrl( baseUrl );
+//      mActionsView.showContent();
+//      mCurrentSectionUrl =  url;
+//
+//      File file = mScreenManager.getPage(url);
+//      String baseUrl = String.format("file://%s", file.getAbsolutePath());
+//
+//      mWebView.loadUrl( baseUrl );
     }
-
+    
 }

@@ -4,6 +4,7 @@ package com.diventi.mobipaper.classified;
 import com.diventi.eldia.R;
 
 import com.diventi.mobipaper.BaseActivity;
+import com.diventi.mobipaper.BaseWebView;
 import com.diventi.mobipaper.ScreenManager;
 import com.diventi.mobipaper.ui.ToolbarProvider;
 import android.content.Context;
@@ -87,7 +88,7 @@ public class ClassifiedActivity extends BaseActivity implements OnClickListener 
 
       mProgressBar = (ProgressBar)findViewById(R.id.img_classified_loading);
       
-      mWebView = (WebView)findViewById(R.id.classified_webview);
+      mWebView = (BaseWebView)findViewById(R.id.classified_webview);
       mClassifiedWebView = (ClassifiedWebView)mWebView;
       mClassifiedWebView.setTextSize(text_size);
       
@@ -124,7 +125,7 @@ public class ClassifiedActivity extends BaseActivity implements OnClickListener 
   
     void saveTextSize() {
       float text_size = mClassifiedWebView.getTextSize();
-      //Log.d(TAG, String.format("saveTextSize: %.2f", text_size));
+      //Log.e(TAG, String.format("saveTextSize: %.2f", text_size));
       SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
       
       Editor editor = prefs.edit();
@@ -171,7 +172,7 @@ public class ClassifiedActivity extends BaseActivity implements OnClickListener 
         return;
       }
 
-      //Log.d(TAG, loadError.toString());
+      //Log.e(TAG, loadError.toString());
       
       showAlert("No se puede mostrar clasificado", loadError);
     }

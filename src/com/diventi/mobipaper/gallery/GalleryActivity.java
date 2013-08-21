@@ -35,7 +35,7 @@ public class GalleryActivity extends BaseActivity {
   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.image_gallery);
-      
+            
       mUrls = getIntent().getStringArrayExtra("urls");
       
       setupViews();

@@ -10,12 +10,11 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.util.Log;
-import android.webkit.WebView;
-
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.os.Bundle;
 import com.bugsense.trace.BugSenseHandler;
 import com.diventi.mobipaper.cache.DiskCache;
-import com.diventi.mobipaper.xml.MobiImage;
 import com.diventi.utils.Network;
 import com.diventi.utils.NoNetwork;
 import com.diventi.utils.SHA1;
@@ -26,16 +25,31 @@ public class BaseActivity extends Activity {
 
   private static final String TAG = "BaseActivity";
   
-  protected WebView        mWebView;
+  protected BaseWebView    mWebView;
   protected ScreenManager  mScreenManager = new ScreenManager();
 
-  protected void loadImages(ArrayList<MobiImage> images) {
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    Configuration conf = getResources().getConfiguration();
+    
+    mScreenManager.IsBig((conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
+    mScreenManager.IsLandscape(conf.orientation == Configuration.ORIENTATION_LANDSCAPE);    
+  }
+  
+  public void enableRotation(Activity activity)
+  {
+    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+  }
+  
+  protected void loadImages(ArrayList<String> images) {
     AsyncHttpClient client = new AsyncHttpClient();
-    for(final MobiImage img : images) {
-      client.get(img.url, new BinaryHttpResponseHandler() {
+    for(final String img : images) {
+      client.get(img, new BinaryHttpResponseHandler() {
         public void onSuccess(byte[] binaryData) {
           DiskCache cache = DiskCache.getInstance();
-          cache.put(img.localUrl, binaryData, ScreenManager.IMAGE_PREFIX);
+          cache.put(SHA1.sha1(img) , binaryData, ScreenManager.IMAGE_PREFIX);
           
           runOnUiThread(new Runnable() {
             @Override
@@ -47,10 +61,10 @@ public class BaseActivity extends Activity {
       });
     }
   }
-
-  private void onImageLoaded(MobiImage image) {
-    //Log.d(TAG, "onImageLoaded: " + image.localUrl);
-    mWebView.loadUrl( String.format("javascript:update_image('%s')", image.localUrl));
+  
+  private void onImageLoaded(String image) {
+    //Log.e(TAG, "onImageLoaded: " + image.localUrl);
+    mWebView.loadUrl( String.format("javascript:update_image('%s')", SHA1.sha1(image)));
   }
 
   protected void onUrlLoading() {
@@ -159,11 +173,11 @@ public class BaseActivity extends Activity {
       Thread t = new Thread() {
         public void run() {
           try {
-            ArrayList<MobiImage> images = mScreenManager.getPendingImages(url);
+            ArrayList<String> images = mScreenManager.getPendingImages(url);
             if(images.size() > 0)
               loadImages(images);
           } catch (Exception e) {
-            //Log.d(TAG, e.toString());
+            //Log.e(TAG, e.toString());
           }
         }
       }; t.run();
@@ -207,7 +221,7 @@ public class BaseActivity extends Activity {
     Date now = new Date();
     long diffSeconds = (now.getTime() - sectionDate)/1000;
     
-    //Log.d(TAG, String.format("segundos diff: %d", diffSeconds));
+    //Log.e(TAG, String.format("segundos diff: %d", diffSeconds));
     
     //5 minutes
     if( diffSeconds > seconds ) {

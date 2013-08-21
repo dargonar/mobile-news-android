@@ -94,11 +94,11 @@ public class ActionsContentView extends ViewGroup {
     a.recycle();
 
     if (DEBUG) {
-      //Log.d(TAG, "spacing type: " + mSpacingType);
-      //Log.d(TAG, "spacing value: " + mSpacing);
-      //Log.d(TAG, "actions spacing value: " + mActionsSpacing);
-      //Log.d(TAG, "actions layout id: " + actionsLayout);
-      //Log.d(TAG, "content layout id: " + contentLayout);
+      //Log.e(TAG, "spacing type: " + mSpacingType);
+      //Log.e(TAG, "spacing value: " + mSpacing);
+      //Log.e(TAG, "actions spacing value: " + mActionsSpacing);
+      //Log.e(TAG, "actions layout id: " + actionsLayout);
+      //Log.e(TAG, "content layout id: " + contentLayout);
     }
 
     mContentScrollController = new ContentScrollController(new Scroller(context));
@@ -199,7 +199,7 @@ public class ActionsContentView extends ViewGroup {
     final int height = MeasureSpec.getSize(heightMeasureSpec);
 
     //if (DEBUG)
-      //Log.d(TAG, "width: " + width + " height: " + height);
+      //Log.e(TAG, "width: " + width + " height: " + height);
 
     final int childrenCount = getChildCount();
     for (int i=0; i<childrenCount; ++i) {
@@ -388,7 +388,7 @@ public class ActionsContentView extends ViewGroup {
       final int x = viewContentContainer.getScrollX();
 
       //if (DEBUG)
-        //Log.d(TAG, "scroll from " + x + " by " + dx);
+        //Log.e(TAG, "scroll from " + x + " by " + dx);
 
       final int scrollBy;
       if (dx < 0) { // scrolling right
@@ -468,7 +468,7 @@ public class ActionsContentView extends ViewGroup {
       mScroller.startScroll(startX, 0, dx, 0);
 
       if (DEBUG)
-        //Log.d(TAG, "starting fling at " + startX + " for " + dx);
+        //Log.e(TAG, "starting fling at " + startX + " for " + dx);
 
       mLastFlingX = startX;
       viewContentContainer.post(this);
@@ -481,7 +481,7 @@ public class ActionsContentView extends ViewGroup {
     public void run() {
       if (mScroller.isFinished()) {
         if (DEBUG)
-          //Log.d(TAG, "scroller is finished, done with fling");
+          //Log.e(TAG, "scroller is finished, done with fling");
         return;
       }
 

@@ -70,7 +70,7 @@ body {
 }
 
 body.menu {
-	/*width:256px;*/
+  width:276px;
 }
 
 body {
@@ -99,38 +99,34 @@ img {
 
 /***** MENU *****/
 #menu {
-	/*height:480px;*/
+  /*height:480px;*/
   /*height:416px;*/
-	background-color:#323232;
-/*  width:265px;*/
-  /*width:256px;*/
+  background-color:#323232;
+  width:276px;
   overflow-x:hidden;
-  overflow-y:auto;
 }
 
 #menu.full_width {
   width:100% !important;
-  background-color:#323232;
-  overflow-x:hidden;
 }
 #menu .menu-header{
   text-shadow: 0px 1px 0px #999999;height:auto;font-size:1em;
   padding:2px 2px 2px 5px; background-color:#545454;color:#dddddd;
 }
 
-#menu ul {
+#menu ul , #clasificados .columna ul{
 	list-style:none;
 	margin:0;
 	padding:0;
 }
 
-#menu li {
+#menu li , #clasificados .columna li {
 	/*width:auto;*/
   width:100%;
 
 }
 
-#menu li a {
+#menu li a, #clasificados .columna li a {
 	display:block;
 	font-size:1.25em/*20px*/;
   line-height:1.75em;/*28px*/
@@ -142,7 +138,7 @@ img {
 	border-bottom:#252525 solid 1px;
 }
 
-#menu li a:active {
+#menu li a:active , #clasificados .columna li a:active{
 	background-color:#252525;
 	text-decoration:none;
 }
@@ -156,19 +152,32 @@ img {
 	text-decoration:none;
 }
 
-#menu li a.vip2 {
-  color: black;
+#menu li a.vip2 , #clasificados .columna li a.vip2{
+  color: /*black*/#333;
   border-top: #C3C3C3 solid 1px;
   border-bottom: #EAEAEA solid 1px;
-  background-color: #E0E0E0/*#EFEFEF*/;
+  background-color: /*#E0E0E0*/#EFEFEF;
 }
-#menu li a.vip2:active {
+#clasificados .columna li a.vip2.first{
+  border-top:none;
+}
+
+#menu li a.vip2:active , #clasificados .columna li a.vip2:active{
 	background-color:#C3C3C3;
 	text-decoration:none;
 }
-#menu .vip2_close {
+#menu .vip2_close , #clasificados .columna .vip2_close{
 	border-top:#C3C3C3 solid 1px;
 	border-bottom:none;
+}
+
+#clasificados .columna.ex li a.vip2{
+  color: #0066cc;
+  font-size: 18px;
+  line-height: 18px;
+  border-top: #CCC solid 1px;
+  /*border-bottom: #EAEAEA solid 1px;*/
+  background-color: #FFF;
 }
 
 #menu ul.clasificados li a {
@@ -272,6 +281,10 @@ div.main_img_container, div.main_foto {
   background-size: cover;
   background-position: center;
   display: block;
+}
+
+.imagen_iphone_landscape{
+height:270px;width:480px;
 }
 
 
@@ -417,7 +430,7 @@ div.main_img_container, div.main_foto {
   margin-top:8px;
   height:30px;
 }
-.media_link .ico_video, .media_link .ico_audio, .media_link .ico_galeria {
+.media_link .ico_video, .media_link .ico_audio, .media_link .ico_galeria , .media_link .ico_plus {
   width:50px; /*width:30px;*/
 	background-color:#0066cc;
   height:30px;
@@ -430,6 +443,11 @@ div.main_img_container, div.main_foto {
 .media_link .ico_video {
   /*background-image:url(../img/../img/ico_video.png);*/
   background-image:url(../img/ico_video.png);
+}
+
+.media_link .ico_plus {
+	/*background-image:url(../img/../img/ico_audio.png);*/
+	background-image:url(../img/ico_plus.png);
 }
 
 .media_link .ico_audio {
@@ -475,54 +493,104 @@ font-weight:bold;}
 }
 .full_width label.seccion{display:inline-block;}
 
-/***** CLASIFICADOS *****/
+/********************************************
+CLASIFICADOS
+********************************************/
 
 #clasificados {
-  /*height:416px;*/
-	background-color:#EFEFEF;
-  width:100% !important;
+  min-height:416px;
+	/*background-color:#EFEFEF;*/
+  /*width:100% !important;*/
   overflow-x:hidden;
   overflow-y:auto;
+	width:320px;
 }
 
+#clasificados .fecha { color:#0066cc;}
+#clasificados .hora { color:#666;}
+#clasificados .clear { clear:both; margin-bottom:10px;}
 
-#clasificados .menu-header{
-  text-shadow: 0px 1px 0px #999999;height:auto;font-size:1em;
-  padding:2px 2px 2px 5px; background-color:#545454;color:#dddddd;
-  text-align:center;
+#clasificados .columna {
+	/*width:240px;*/
+  /*width:240px;*/
+  width:300px;
+	float:left;
+	padding:10px 8px 10px 10px;
+	/*border-right:#ccc solid 1px;*/
 }
 
-#clasificados ul {
-	list-style:none;
-	margin:0;
-	padding:0;
-  font-size:1em;
-  height:auto;
-}
-
-#clasificados li {
-	/*width:auto;*/
-  width:100%;
+#clasificados .columna.ex, #clasificados .columna.exsimple{
+  width:320px;
+	float:left;
+	padding:0px 0px 0px 0px;
 
 }
 
-#clasificados li div {
-	display:block;
-  line-height:1.05em;
-	color:#000000;
-	text-decoration:none;
-	padding:8px 20px 9px 20px;
-	border-top:#c3c3c3 solid 1px;
-	border-bottom:#eaeaea solid 1px;
-  /*border-top:#4d4d4d solid 1px;
-	border-bottom:#252525 solid 1px;*/
+#clasificados .columna .aviso {
+  color:#333;
+	border-bottom:#ccc solid 1px;
+	margin:10px;
 }
+
+#clasificados .columna .aviso p { font-size:1em; line-height:1.5em; margin:0 0 10px 0;}
+
+#clasificados .columna  .rubro {
+	color:#333;
+	font-size:20px;
+	line-height:30px;
+	margin:10px;
+}
+
+#clasificados .columna .encabezado {
+	border-bottom:#ccc solid 1px;
+	margin:10px;
+}
+
+#clasificados .columna .encabezado.ex  {
+	/*border-bottom:none;
+	margin:10px;*/
+  
+  margin:0;
+  color: /*black*/#333;
+  border-top: none;
+  padding:10px 8px 10px 10px;
+  border-bottom: #EAEAEA solid 1px;
+  background-color: /*#E0E0E0*/#EFEFEF;
+}
+
+#clasificados .columna .encabezado .titulo {
+	color:#0066cc;
+	font-size:18px;
+	line-height:18px;
+}
+
+#clasificados .columna .encabezado.ex .titulo{
+  color: /*black*/#333;
+}
+
+#clasificados .columna .encabezado .rubro {
+	color:#0066cc;
+	font-size:30px;
+	line-height:30px;
+	margin-bottom:5px;
+}
+
+#clasificados .columna .encabezado .calendario {
+	padding:5px;
+	margin-right:1px;
+	background-color:#333;
+	color:#fff;
+	float:left;
+	font-size:18px;
+/*	margin-top:-8px;*/
+}
+
 
 /* cartel actualizado */
 .updated{
   text-shadow: 0px 1px 0px #999999;height:auto;font-size:0.8em;
   padding:2px 5px 2px 2px; background-color:#545454;color:#dddddd;
-  width:313px;
+  width:100%;
   text-align:right; 
   display:none; 
   position:absolute;

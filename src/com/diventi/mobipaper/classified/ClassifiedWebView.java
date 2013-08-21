@@ -1,5 +1,6 @@
 package com.diventi.mobipaper.classified;
 
+import com.diventi.mobipaper.BaseWebView;
 import com.diventi.mobipaper.ui.ToolbarProvider;
 
 import android.annotation.SuppressLint;
@@ -15,7 +16,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 @SuppressLint("SetJavaScriptEnabled")
-public class ClassifiedWebView extends WebView
+public class ClassifiedWebView extends BaseWebView
 {
   private static final String TAG       = "ArticleWebView";
 
@@ -85,10 +86,6 @@ public class ClassifiedWebView extends WebView
     
     getGestureDetector(getContext());
     getSettings().setJavaScriptEnabled(true);
-
-    //initJavascriptInterface();
-
-    setInitialScale(100);
     setWebViewClient(this.mWebViewClient);
   }
   
