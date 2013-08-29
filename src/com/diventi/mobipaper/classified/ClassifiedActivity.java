@@ -11,17 +11,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
-import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 public class ClassifiedActivity extends BaseActivity implements OnClickListener {
 
+    @SuppressWarnings("unused")
     private static final String TAG       = "ClassifiedActivity";
     private static final String TEXT_SIZE = "text.size";
 

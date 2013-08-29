@@ -1,23 +1,23 @@
 package com.diventi.mobipaper.classified;
 
-import com.diventi.mobipaper.BaseWebView;
-import com.diventi.mobipaper.ui.ToolbarProvider;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.diventi.mobipaper.BaseWebView;
+import com.diventi.mobipaper.ui.ToolbarProvider;
+
 @SuppressLint("SetJavaScriptEnabled")
 public class ClassifiedWebView extends BaseWebView
 {
+  @SuppressWarnings("unused")
   private static final String TAG       = "ArticleWebView";
 
   private static GestureDetector mGestureDetector;

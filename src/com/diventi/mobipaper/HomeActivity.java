@@ -11,24 +11,18 @@ import com.diventi.mobipaper.ui.ActionsContentView;
 import com.diventi.utils.SHA1;
 import com.diventi.utils.TimeDiff;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class HomeActivity extends BaseActivity implements OnClickListener, SectionHandler {
     
+    @SuppressWarnings("unused")
     private static final String TAG  = "HomeActivity";  
     
     private static String      MAIN_URL  = "section://main";
@@ -88,6 +82,8 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
                 if(!resourceManager.foldersExists())
                   resourceManager.copyResources();
 
+                
+                
                 DiskCache cache = DiskCache.getInstance();
                 double cacheSize = cache.size();
                 //Log.e(TAG, String.format("cache size pre: %.2f Mb", cacheSize));
@@ -180,14 +176,22 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
     protected void onWebViewLoaded(String url, boolean useCache) {
       
       //mostrar de cuando es la actualizacion
-      if( url == MAIN_URL ) 
+      if( url.startsWith("section://")   ) 
       {
         long section_date = mScreenManager.sectionDate(url);
+        
+        if( url == MAIN_URL )
+          loadMenu();
+
         String js = String.format("javascript:setTimeout(function(){show_actualizado('%s')},1000)", TimeDiff.timeAgo(section_date));
         mWebView.loadUrl(js);
+        
+        if ( TimeDiff.minutesSince(section_date) > 15 )
+        {
+          loadSection(url, false, false);
+        }
+       
       }
-      
-      loadMenu();
     }
 
     private boolean isSplashShowing() {
@@ -211,7 +215,6 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 
     private void loadMenu() {
 
-      
       DiskCache cache = DiskCache.getInstance();
       String key = SHA1.sha1(MENU_LEFT);
       File f = new File(cache.getFolder(),key + "." + ScreenManager.MENU_PREFIX);

@@ -8,15 +8,10 @@ import com.diventi.mobipaper.ui.ActionsContentView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.JsResult;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 public class HomeWebView extends BaseWebView
 {

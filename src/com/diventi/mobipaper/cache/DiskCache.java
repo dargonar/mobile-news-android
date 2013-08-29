@@ -1,11 +1,13 @@
 package com.diventi.mobipaper.cache;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -39,6 +41,25 @@ public class DiskCache {
     mInitialized = false;
   }
   
+  public String getMediaVersion() {
+    String mediaVersion = "0";
+    
+    File file = buildFile("css/version", ".txt");
+    if(file.exists())
+    {
+      try {
+        BufferedReader fp = new BufferedReader( new InputStreamReader(new FileInputStream(file) ));
+        mediaVersion = fp.readLine();
+      } catch (FileNotFoundException e) {
+
+      } catch (IOException e) {
+
+      }
+    }
+    
+    return mediaVersion;
+  }
+  
   public void configure(File rootFolder, double cacheSizeMB) {
 
     mCacheFolder = new File(rootFolder, CACHE_FOLDER);
@@ -69,6 +90,10 @@ public class DiskCache {
     } catch (IOException e) {
       return null;
     }
+  }
+  
+  public boolean put(String fullname, byte[] data) {
+    return put(fullname, data, null);
   }
   
   public boolean put(String key, byte[] data, String prefix) {
@@ -168,7 +193,10 @@ public class DiskCache {
   }
   
   private File buildFile(String key, String prefix) {
-    return new File(String.format("%s/%s.%s", mCacheFolder, key, prefix));
+    if(prefix == null)
+      return new File(String.format("%s/%s", mCacheFolder, key));
+    else
+      return new File(String.format("%s/%s.%s", mCacheFolder, key, prefix));
   }
 
   class RemovableFilesFilter implements FilenameFilter {

@@ -4,6 +4,14 @@ import java.util.Date;
 
 public class TimeDiff {
 
+  public static long minutesSince(long from) {
+
+    Date now = new Date();
+    long seconds = Math.round( Math.abs(now.getTime() - from)/1000 );
+    
+    return seconds/60;
+  }
+  
   public static String timeAgo(long from) {
 
     String[] periods = new String[] { "segundo", "minuto", "hora", "dia", "semana", "mes", "año", "década" };

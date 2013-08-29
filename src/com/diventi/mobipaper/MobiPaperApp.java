@@ -17,7 +17,9 @@ public class MobiPaperApp extends Application {
   private static Context mContext;  
   private static DiskCache mDiskCache;
   private static boolean mYoutubeInstalled;
-    
+  private static String mAppId;
+  private static String mMediaVersion;
+  
   @Override
   public void onCreate() {
     super.onCreate();
@@ -32,6 +34,9 @@ public class MobiPaperApp extends Application {
     mDiskCache.configure( cacheDir, MAX_CACHE_SIZE_MB );
     
     mYoutubeInstalled = isAppInstalled("com.google.android.youtube");
+    
+    mAppId = getApplicationInfo().packageName;
+    mMediaVersion = mDiskCache.getMediaVersion();
   }
   
   public static DiskCache getCache() {
@@ -44,6 +49,14 @@ public class MobiPaperApp extends Application {
 
   public static boolean isYoutubeInstalled() {
     return mYoutubeInstalled;
+  }
+  
+  public static String getAppId() {
+    return mAppId;
+  }
+  
+  public static String getMediaVersion() {
+    return mMediaVersion;
   }
   
   private boolean isAppInstalled(String uri) {
