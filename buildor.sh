@@ -4,8 +4,11 @@ IMAGES=../MobiPaperWeb/ElDia/images/
 #declare -a apps=('eldia' 'pregon' 'ecosdiarios' 'castellanos');
 #declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
 
-declare -a apps=('pregon');
-declare -a desc=('Pregon');
+declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos');
+declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
+
+#declare -a apps=('pregon');
+#declare -a desc=('Pregon');
 
 total=${#apps[*]}
 
@@ -34,9 +37,16 @@ do
 
   mv $FOLDER/gen/com/diventi/eldia $FOLDER/gen/com/diventi/$i
 
-  cp $IMAGES/$i/Icon@2x.png $FOLDER/res/drawable/icon.png
   cp $IMAGES/$i/logo.png $FOLDER/res/drawable/logo.png
   cp $IMAGES/$i/logo@2x.png $FOLDER/res/drawable/logo_solo.png
+
+  cp $IMAGES/$i/android/icon.png $FOLDER/res/drawable
+  cp $IMAGES/$i/android/back.png $FOLDER/res/drawable
+  cp $IMAGES/$i/android/list.png $FOLDER/res/drawable
+  cp $IMAGES/$i/android/refresh.png $FOLDER/res/drawable
+  cp $IMAGES/$i/android/refresh.png $FOLDER/res/drawable
+  cp $IMAGES/$i/android/share.png $FOLDER/res/drawable
+  cp $IMAGES/$i/android/warning.48x48.png $FOLDER/res/drawable
 
   BG=`head -c 7 $IMAGES/$i/bg.rgb`
   for f in `find $FOLDER/res -name "*.xml" | xargs grep -l "#3479c9"`; do

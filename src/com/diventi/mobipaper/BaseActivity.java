@@ -1,6 +1,8 @@
 package com.diventi.mobipaper;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.StreamCorruptedException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
@@ -169,19 +171,19 @@ public class BaseActivity extends Activity {
     String baseUrl = String.format("file://%s", html.getAbsolutePath());
     mWebView.loadUrl( baseUrl );
     
-    if(prefix != ScreenManager.CLASSIFIED_PREFIX) {
-      //Le quedan imagenes por traer a esta seccion?
-      Thread t = new Thread() {
-        public void run() {
-          try {
-            ArrayList<String> images = mScreenManager.getPendingImages(url);
-            if(images.size() > 0)
-              loadImages(images);
-          } catch (Exception e) {
-            //Log.e(TAG, e.toString());
+    try {
+      final ArrayList<String> images = mScreenManager.getPendingImages(url);
+      if( images.size() > 0 )
+      {
+        Thread t = new Thread() {
+          public void run() {
+            loadImages(images);
           }
-        }
-      }; t.run();
+        }; t.run();
+      }
+      
+    } catch (Exception e) {
+
     }
     
     onWebViewLoaded(url, useCache);
