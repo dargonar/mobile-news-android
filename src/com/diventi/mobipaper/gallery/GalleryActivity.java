@@ -1,14 +1,5 @@
 package com.diventi.mobipaper.gallery;
 
-import com.diventi.eldia.R;
-
-import com.diventi.mobipaper.BaseActivity;
-import com.diventi.mobipaper.ScreenManager;
-import com.diventi.mobipaper.cache.DiskCache;
-import com.diventi.utils.SHA1;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.BinaryHttpResponseHandler;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,13 +8,21 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.diventi.mobipaper.BaseActivity;
+import com.diventi.mobipaper.ScreenManager;
+import com.diventi.mobipaper.cache.DiskCache;
+import com.diventi.eldia.R;
+import com.diventi.utils.SHA1;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.BinaryHttpResponseHandler;
+
 public class GalleryActivity extends BaseActivity {
 
+  @SuppressWarnings("unused")
   private static final String TAG = "GalleryActivity";
   
   private ViewPager       mImagePager;
@@ -117,34 +116,34 @@ public class GalleryActivity extends BaseActivity {
       remoteImage.setupViews(mContext);
       
       final DiskCache cache = DiskCache.getInstance();
-      final String    key   = SHA1.sha1(mUrls[position]); 
+      final String    key   = mUrls[position]; //SHA1.sha1(mUrls[position]); 
       
       if( !cache.exists(key, ScreenManager.IMAGE_PREFIX) ) {
 
-        mClient.get(mUrls[position], new BinaryHttpResponseHandler() {
-
-          @Override
-          public void onSuccess(int statusCode, final byte[] binaryData) {
-            super.onSuccess(statusCode, binaryData);
-            cache.put(key, binaryData, ScreenManager.IMAGE_PREFIX);
-            setBinaryOnImage(binaryData);
-          }
-          
-          @Override
-          public void onFailure(Throwable error) {
-            setBinaryOnImage(null);
-          }
-          
-          public void setBinaryOnImage(final byte[] binaryData) {
-            runOnUiThread( new Runnable() {
-              @Override
-              public void run() {
-                remoteImage.setRemoteImage(bitmapFromByteArray(binaryData));
-              }
-            });            
-          }
-          
-        });
+//        mClient.get(mUrls[position], new BinaryHttpResponseHandler() {
+//
+//          @Override
+//          public void onSuccess(int statusCode, final byte[] binaryData) {
+//            super.onSuccess(statusCode, binaryData);
+//            cache.put(key, binaryData, ScreenManager.IMAGE_PREFIX);
+//            setBinaryOnImage(binaryData);
+//          }
+//          
+//          @Override
+//          public void onFailure(Throwable error) {
+//            setBinaryOnImage(null);
+//          }
+//          
+//          public void setBinaryOnImage(final byte[] binaryData) {
+//            runOnUiThread( new Runnable() {
+//              @Override
+//              public void run() {
+//                remoteImage.setRemoteImage(bitmapFromByteArray(binaryData));
+//              }
+//            });            
+//          }
+//          
+//        });
         
       } else {
         remoteImage.setRemoteImage(bitmapFromByteArray(cache.get(key, ScreenManager.IMAGE_PREFIX)));

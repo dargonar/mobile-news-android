@@ -15,13 +15,10 @@
  ******************************************************************************/
 package com.diventi.mobipaper.ui;
 
-import com.diventi.eldia.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -30,7 +27,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Scroller;
 
+import com.diventi.eldia.R;
+
 public class ActionsContentView extends ViewGroup {
+  @SuppressWarnings("unused")
   private static final String TAG = ActionsContentView.class.getSimpleName();
   private static final boolean DEBUG = true;
 

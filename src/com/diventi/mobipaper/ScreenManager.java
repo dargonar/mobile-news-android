@@ -1,14 +1,11 @@
 package com.diventi.mobipaper;
 
-import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.StreamCorruptedException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,16 +16,16 @@ import java.util.zip.ZipInputStream;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.io.IOUtils;
 import org.xml.sax.SAXException;
+
 import android.net.Uri;
-import android.util.Pair;
 import com.diventi.mobipaper.cache.DiskCache;
-import com.diventi.mobipaper.xml.MobiImage;
 import com.diventi.utils.Network;
 import com.diventi.utils.NoNetwork;
 import com.diventi.utils.SHA1;
 
 public class ScreenManager {
 
+  @SuppressWarnings("unused")
   private static final String TAG = "ScreenManager"; 
   
   private Boolean m_isBig = false;
@@ -44,44 +41,44 @@ public class ScreenManager {
   public static final String SECTION_PREFIX      = "s";
   public static final String MENU_PREFIX         = "m";
   public static final String IMAGE_PREFIX        = "i";
-  public static final String CLASSIFIED_PREFIX   = "cf";
-  public static final String FUNEBRES_PREFIX     = "f";
+  public static final String CLASSIFIED_PREFIX   = "s";
+  public static final String FUNEBRES_PREFIX     = "fun";
   public static final String FARMACIAS_PREFIX    = "far";
   public static final String CARTELERA_PREFIX    = "car";  
   
-  private static String MAIN_STYLESHEET          = "1_main_list.xsl";
-  private static String NOTICIA_STYLESHEET       = "3_new.xsl";
-  private static String SECTIONS_STYLESHEET      = "2_section_list.xsl";
-  private static String MENU_STYLESHEET          = "4_menu.xsl";
-  private static String CLASIFICADOS_STYLESHEET  = "5_clasificados.xsl";
-  private static String FUNEBRES_STYLESHEET      = "6_funebres.xsl";
-  private static String FARMACIAS_STYLESHEET     = "7_farmacias.xsl";
-  private static String CARTELERA_STYLESHEET     = "8_cartelera.xsl";
-  
-  
-  private static String BIG_MAIN_STYLESHEET                 = "1_tablet_main_list.xsl";
-  private static String BIG_SECTION_STYLESHEET              = "1_tablet_section_list.xsl";
-  private static String BIG_SECTION_NEWS_PT_STYLESHEET      = "2_tablet_noticias_seccion_portrait.xsl";
-  private static String BIG_SECTION_NEWS_LS_STYLESHEET      = "2_tablet_noticias_seccion_landscape.xsl";
-  private static String BIG_MAIN_NEWS_PT_STYLESHEET         = "2_tablet_noticias_index_portrait.xsl";
-  private static String BIG_MAIN_NEWS_LS_STYLESHEET         = "2_tablet_noticias_index_landscape.xsl";
-  private static String BIG_NOTICIA_PT_STYLESHEET           = "3_tablet_new_global.xsl";
-  private static String BIG_NOTICIA_LS_STYLESHEET           = "3_tablet_new_landscape.xsl";
-  private static String BIG_MENU_STYLESHEET                 = "4_tablet_menu_secciones.xsl";
-  private static String BIG_CLASIFICADOS_STYLESHEET         = "5_tablet_clasificados.xsl";
-  private static String BIG_FUNEBRES_STYLESHEET             = "6_tablet_funebres.xsl";
-  private static String BIG_FARMACIAS_STYLESHEET            = "7_tablet_farmacias.xsl";
-  private static String BIG_CARTELERA_STYLESHEET            = "8_tablet_cartelera.xsl";
-  
-  
-  private static String MAIN_URL          = "http://www.eldia.com.ar/rss/index.aspx";
-  private static String NOTICIA_URL       = "http://www.eldia.com.ar/rss/noticia.aspx?id=%s";
-  private static String SECTIONS_URL      = "http://www.eldia.com.ar/rss/index.aspx?seccion=%s";
-  private static String MENU_URL          = "http://www.eldia.com.ar/rss/secciones.aspx";
-  private static String CLASIFICADOS_URL  = "http://www.eldia.com.ar/mc/clasi_rss_utf8.aspx?idr=%s&app=1";
-  private static String FUNEBRES_URL      = "http://www.eldia.com.ar/mc/fune_rss_utf8.aspx";
-  private static String CARTELERA_URL     = "http://www.eldia.com.ar/extras/carteleradecine_txt.aspx";
-  private static String FARMACIAS_URL     = "http://www.eldia.com.ar/extras/farmacias_txt.aspx";
+//  private static String MAIN_STYLESHEET          = "1_main_list.xsl";
+//  private static String NOTICIA_STYLESHEET       = "3_new.xsl";
+//  private static String SECTIONS_STYLESHEET      = "2_section_list.xsl";
+//  private static String MENU_STYLESHEET          = "4_menu.xsl";
+//  private static String CLASIFICADOS_STYLESHEET  = "5_clasificados.xsl";
+//  private static String FUNEBRES_STYLESHEET      = "6_funebres.xsl";
+//  private static String FARMACIAS_STYLESHEET     = "7_farmacias.xsl";
+//  private static String CARTELERA_STYLESHEET     = "8_cartelera.xsl";
+//  
+//  
+//  private static String BIG_MAIN_STYLESHEET                 = "1_tablet_main_list.xsl";
+//  private static String BIG_SECTION_STYLESHEET              = "1_tablet_section_list.xsl";
+//  private static String BIG_SECTION_NEWS_PT_STYLESHEET      = "2_tablet_noticias_seccion_portrait.xsl";
+//  private static String BIG_SECTION_NEWS_LS_STYLESHEET      = "2_tablet_noticias_seccion_landscape.xsl";
+//  private static String BIG_MAIN_NEWS_PT_STYLESHEET         = "2_tablet_noticias_index_portrait.xsl";
+//  private static String BIG_MAIN_NEWS_LS_STYLESHEET         = "2_tablet_noticias_index_landscape.xsl";
+//  private static String BIG_NOTICIA_PT_STYLESHEET           = "3_tablet_new_global.xsl";
+//  private static String BIG_NOTICIA_LS_STYLESHEET           = "3_tablet_new_landscape.xsl";
+//  private static String BIG_MENU_STYLESHEET                 = "4_tablet_menu_secciones.xsl";
+//  private static String BIG_CLASIFICADOS_STYLESHEET         = "5_tablet_clasificados.xsl";
+//  private static String BIG_FUNEBRES_STYLESHEET             = "6_tablet_funebres.xsl";
+//  private static String BIG_FARMACIAS_STYLESHEET            = "7_tablet_farmacias.xsl";
+//  private static String BIG_CARTELERA_STYLESHEET            = "8_tablet_cartelera.xsl";
+//  
+//  
+//  private static String MAIN_URL          = "http://www.eldia.com.ar/rss/index.aspx";
+//  private static String NOTICIA_URL       = "http://www.eldia.com.ar/rss/noticia.aspx?id=%s";
+//  private static String SECTIONS_URL      = "http://www.eldia.com.ar/rss/index.aspx?seccion=%s";
+//  private static String MENU_URL          = "http://www.eldia.com.ar/rss/secciones.aspx";
+//  private static String CLASIFICADOS_URL  = "http://www.eldia.com.ar/mc/clasi_rss_utf8.aspx?idr=%s&app=1";
+//  private static String FUNEBRES_URL      = "http://www.eldia.com.ar/mc/fune_rss_utf8.aspx";
+//  private static String CARTELERA_URL     = "http://www.eldia.com.ar/extras/carteleradecine_txt.aspx";
+//  private static String FARMACIAS_URL     = "http://www.eldia.com.ar/extras/farmacias_txt.aspx";
   
   public String getArticle(String url, boolean useCache) throws IOException, SAXException, ParserConfigurationException, URISyntaxException, NoNetwork {
     return getScreen(url, useCache, true, ScreenManager.ARTICLE_PREFIX);
@@ -121,16 +118,7 @@ public class ScreenManager {
   }
   
   public String getScreen(String url, boolean useCache, boolean processImages, String prefix) throws IOException, SAXException, ParserConfigurationException, URISyntaxException, NoNetwork {
-    long t0 = System.currentTimeMillis();
     String tmp = getScreenPlain(url, useCache, processImages, prefix);
-    long t1 = System.currentTimeMillis();
-
-    //Log.e(TAG, "----------> ELAPSED <---------");
-    //Log.e(TAG, 
-    //String.format("----------> %.2f s <---------", (t1 - t0)/1000.0 ));
-    
-    //System.out.println("That took " + (endTime - startTime) + " milliseconds");
-
     return tmp;
   }
   
@@ -157,9 +145,19 @@ public class ScreenManager {
 
   void downloadHtml(String iurl, String key, String prefix) throws IOException
   {
-    String urlParameters = String.format("url=%s&appid=com.diventi.castellanos&size=small&ptls=pt", iurl);
-    //URL url = new URL("http://www.diariosmoviles.com.ar/ws/screen");
-    URL url = new URL("http://192.168.1.14:8080/ws/screen");
+
+    String urlParameters = String.format("url=%s&appid=%s&size=%s&ptls=%s&net=%s&ver=%s", 
+                iurl, 
+                MobiPaperApp.getAppId(), 
+                IsBig() ? "big" : "small",
+                IsLandscape() ? "ls" : "pt",
+                Network.connectionType(),
+                MobiPaperApp.getMediaVersion()
+    );
+
+    URL url = new URL("http://www.diariosmoviles.com.ar/ws/screen");
+    
+    //URL url = new URL("http://192.168.1.14:8080/ws/screen");
     
     HttpURLConnection con = (HttpURLConnection)url.openConnection();
     
@@ -177,12 +175,15 @@ public class ScreenManager {
     InputStream is = con.getInputStream();
 
     ZipInputStream zis = new ZipInputStream(is);
-    ZipEntry entry;
+    
 
     DiskCache cache = DiskCache.getInstance();
-    while ((entry = zis.getNextEntry()) != null)
+    ZipEntry entry = zis.getNextEntry();
+    while (entry != null)
     {
-      cache.put(key, IOUtils.toByteArray(zis), prefix);
+      String name = entry.getName();
+      cache.put(name, IOUtils.toByteArray(zis));
+      entry = zis.getNextEntry();
     }
     
     return;
@@ -224,7 +225,7 @@ public class ScreenManager {
   }
   
   public boolean menuExists() {
-    return screenExists("menu://left", ScreenManager.MENU_PREFIX);
+    return screenExists("menu://", ScreenManager.MENU_PREFIX);
   }
   
   public boolean classifiedExists(String url) {
@@ -252,147 +253,147 @@ public class ScreenManager {
   }
   
   
-  private String getStyleSheetBig(String url) throws MalformedURLException {
-    
-    if( url.startsWith("menu_section://main") ) {
-      return BIG_MAIN_NEWS_PT_STYLESHEET;
-    }
-
-    if( url.startsWith("menu_section://") ) {
-      return IsLandscape() ? BIG_SECTION_NEWS_LS_STYLESHEET : BIG_SECTION_NEWS_PT_STYLESHEET;
-    }
-
-    if( url.startsWith("ls_menu_section://main") ) {
-      return BIG_MAIN_NEWS_LS_STYLESHEET;
-    }
-    
-    if( url.startsWith("ls_menu_section://") ) {
-      return BIG_SECTION_NEWS_LS_STYLESHEET;
-    }
-
-    if( url.startsWith("section://main") ) {
-      return BIG_MAIN_STYLESHEET;
-    }
-    
-    if( url.startsWith("section://") ) {
-      return BIG_SECTION_STYLESHEET;
-    }    
-        
-    if( url.startsWith("ls_section://") ) {
-      return SECTIONS_STYLESHEET;
-    }    
-
-    if( url.startsWith("noticia://") ) {
-      return BIG_NOTICIA_PT_STYLESHEET;
-    }    
-
-    if( url.startsWith("ls_noticia://") ) {
-      return BIG_NOTICIA_LS_STYLESHEET;
-    }    
-    
-    if( url.startsWith("clasificados://") ) {
-      return BIG_CLASIFICADOS_STYLESHEET;
-    }    
-
-    if( url.startsWith("funebres://") ) {
-      return BIG_FUNEBRES_STYLESHEET;
-    }    
-        
-    if( url.startsWith("menu://") ) {
-      return BIG_MENU_STYLESHEET;
-    }  
-
-    if( url.startsWith("farmacia://") ) {
-      return BIG_FARMACIAS_STYLESHEET;
-    }  
-        
-    if( url.startsWith("cartelera://") ) {
-      return BIG_CARTELERA_STYLESHEET;
-    }  
-        
-    throw new MalformedURLException();
-    
-  }
-  
-  private String getStyleSheet(String url) throws MalformedURLException {
-
-    if( IsBig() )
-      return getStyleSheetBig(url);
-    
-    if( url.startsWith("section://main") ) {
-      return MAIN_STYLESHEET;
-    }
-    
-    if( url.startsWith("noticia://") ) {  
-      return NOTICIA_STYLESHEET;
-    }
-    
-    if( url.startsWith("clasificados://") ) {
-      return CLASIFICADOS_STYLESHEET;
-    }
-    
-    if( url.startsWith("section://") ) {  
-      return SECTIONS_STYLESHEET;
-    }
-
-    if( url.startsWith("menu://") ) {
-      return MENU_STYLESHEET;
-    }
-    
-    if( url.startsWith("cartelera://") ) {  
-      return CARTELERA_STYLESHEET;
-    }
-
-    if( url.startsWith("funebres://") ) {  
-      return FUNEBRES_STYLESHEET;
-    }
-
-    if( url.startsWith("farmacia://") ) {  
-      return FARMACIAS_STYLESHEET;
-    }
-
-    throw new MalformedURLException();
-  }
- 
-  
-  private String getXmlHttpUrl(String url) throws URISyntaxException {
-    
-    Uri tmp = Uri.parse(url);
-    
-    if( url.startsWith("section://main") ) {
-      return MAIN_URL;
-    }
-    
-    if( url.startsWith("noticia://") ) {  
-      return String.format(NOTICIA_URL, tmp.getHost());
-    }
-    
-    if( url.startsWith("section://") ) {
-      return String.format(SECTIONS_URL, tmp.getHost());
-    }
-  
-    if( url.startsWith("clasificados://") ) {
-      return String.format(CLASIFICADOS_URL, tmp.getHost());
-    }
-  
-    if( url.startsWith("menu://") ) {
-      return String.format(MENU_URL);
-    }
-
-    if( url.startsWith("funebres://") ) {
-      return String.format(FUNEBRES_URL);
-    }
-
-    if( url.startsWith("farmacia://") ) {
-      return String.format(FARMACIAS_URL);
-    }
-
-    if( url.startsWith("cartelera://") ) {
-      return String.format(CARTELERA_URL);
-    }
-    
-    throw new URISyntaxException("","");
-  }
+//  private String getStyleSheetBig(String url) throws MalformedURLException {
+//    
+//    if( url.startsWith("menu_section://main") ) {
+//      return BIG_MAIN_NEWS_PT_STYLESHEET;
+//    }
+//
+//    if( url.startsWith("menu_section://") ) {
+//      return IsLandscape() ? BIG_SECTION_NEWS_LS_STYLESHEET : BIG_SECTION_NEWS_PT_STYLESHEET;
+//    }
+//
+//    if( url.startsWith("ls_menu_section://main") ) {
+//      return BIG_MAIN_NEWS_LS_STYLESHEET;
+//    }
+//    
+//    if( url.startsWith("ls_menu_section://") ) {
+//      return BIG_SECTION_NEWS_LS_STYLESHEET;
+//    }
+//
+//    if( url.startsWith("section://main") ) {
+//      return BIG_MAIN_STYLESHEET;
+//    }
+//    
+//    if( url.startsWith("section://") ) {
+//      return BIG_SECTION_STYLESHEET;
+//    }    
+//        
+//    if( url.startsWith("ls_section://") ) {
+//      return SECTIONS_STYLESHEET;
+//    }    
+//
+//    if( url.startsWith("noticia://") ) {
+//      return BIG_NOTICIA_PT_STYLESHEET;
+//    }    
+//
+//    if( url.startsWith("ls_noticia://") ) {
+//      return BIG_NOTICIA_LS_STYLESHEET;
+//    }    
+//    
+//    if( url.startsWith("clasificados://") ) {
+//      return BIG_CLASIFICADOS_STYLESHEET;
+//    }    
+//
+//    if( url.startsWith("funebres://") ) {
+//      return BIG_FUNEBRES_STYLESHEET;
+//    }    
+//        
+//    if( url.startsWith("menu://") ) {
+//      return BIG_MENU_STYLESHEET;
+//    }  
+//
+//    if( url.startsWith("farmacia://") ) {
+//      return BIG_FARMACIAS_STYLESHEET;
+//    }  
+//        
+//    if( url.startsWith("cartelera://") ) {
+//      return BIG_CARTELERA_STYLESHEET;
+//    }  
+//        
+//    throw new MalformedURLException();
+//    
+//  }
+//  
+//  private String getStyleSheet(String url) throws MalformedURLException {
+//
+//    if( IsBig() )
+//      return getStyleSheetBig(url);
+//    
+//    if( url.startsWith("section://main") ) {
+//      return MAIN_STYLESHEET;
+//    }
+//    
+//    if( url.startsWith("noticia://") ) {  
+//      return NOTICIA_STYLESHEET;
+//    }
+//    
+//    if( url.startsWith("clasificados://") ) {
+//      return CLASIFICADOS_STYLESHEET;
+//    }
+//    
+//    if( url.startsWith("section://") ) {  
+//      return SECTIONS_STYLESHEET;
+//    }
+//
+//    if( url.startsWith("menu://") ) {
+//      return MENU_STYLESHEET;
+//    }
+//    
+//    if( url.startsWith("cartelera://") ) {  
+//      return CARTELERA_STYLESHEET;
+//    }
+//
+//    if( url.startsWith("funebres://") ) {  
+//      return FUNEBRES_STYLESHEET;
+//    }
+//
+//    if( url.startsWith("farmacia://") ) {  
+//      return FARMACIAS_STYLESHEET;
+//    }
+//
+//    throw new MalformedURLException();
+//  }
+// 
+//  
+//  private String getXmlHttpUrl(String url) throws URISyntaxException {
+//    
+//    Uri tmp = Uri.parse(url);
+//    
+//    if( url.startsWith("section://main") ) {
+//      return MAIN_URL;
+//    }
+//    
+//    if( url.startsWith("noticia://") ) {  
+//      return String.format(NOTICIA_URL, tmp.getHost());
+//    }
+//    
+//    if( url.startsWith("section://") ) {
+//      return String.format(SECTIONS_URL, tmp.getHost());
+//    }
+//  
+//    if( url.startsWith("clasificados://") ) {
+//      return String.format(CLASIFICADOS_URL, tmp.getHost());
+//    }
+//  
+//    if( url.startsWith("menu://") ) {
+//      return String.format(MENU_URL);
+//    }
+//
+//    if( url.startsWith("funebres://") ) {
+//      return String.format(FUNEBRES_URL);
+//    }
+//
+//    if( url.startsWith("farmacia://") ) {
+//      return String.format(FARMACIAS_URL);
+//    }
+//
+//    if( url.startsWith("cartelera://") ) {
+//      return String.format(CARTELERA_URL);
+//    }
+//    
+//    throw new URISyntaxException("","");
+//  }
 
   /*
   private byte[] downloadUrl(String uri) throws MalformedURLException, IOException {

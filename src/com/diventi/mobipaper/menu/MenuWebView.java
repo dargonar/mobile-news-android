@@ -4,15 +4,12 @@ import com.diventi.mobipaper.BaseWebView;
 import com.diventi.mobipaper.SectionHandler;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 public class MenuWebView extends BaseWebView {
 
-  private Context mContext;
+  //private Context mContext;
   
   public MenuWebView(Context context, AttributeSet attrs)
   {
@@ -26,7 +23,7 @@ public class MenuWebView extends BaseWebView {
     if(isInEditMode())
       return;
     
-    mContext = context;
+    //mContext = context;
   }
   
   public boolean shouldOverrideUrlLoading(WebView view, String url) 

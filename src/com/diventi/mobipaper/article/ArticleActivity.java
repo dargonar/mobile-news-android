@@ -22,6 +22,7 @@ import com.diventi.mobipaper.ui.ToolbarView;
 
 public class ArticleActivity extends BaseActivity implements OnClickListener {
 
+    @SuppressWarnings("unused")
     private static final String TAG       = "ArticleActivity";
     private static final String TEXT_SIZE = "text.size";
 

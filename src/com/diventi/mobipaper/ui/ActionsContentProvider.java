@@ -30,7 +30,7 @@ public class ActionsContentProvider
   public void setActionView(ActionsContentView param)
   {
     synchronized (this) {
-      mToolbarRef = new WeakReference(param);
+      mToolbarRef = new WeakReference<ActionsContentView>(param);
       return;
     }
   }

@@ -23,6 +23,7 @@ import com.loopj.android.http.BinaryHttpResponseHandler;
 
 public class BaseActivity extends Activity {
 
+  @SuppressWarnings("unused")
   private static final String TAG = "BaseActivity";
   
   protected BaseWebView    mWebView;
