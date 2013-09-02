@@ -70,7 +70,7 @@ body {
 }
 
 body.menu {
-  width:276px;
+	width:276px;
 }
 
 body {
@@ -99,9 +99,10 @@ img {
 
 /***** MENU *****/
 #menu {
-  /*height:480px;*/
-  /*height:416px;*/
-  background-color:#323232;
+	/*height:480px;*/
+  height:416px;
+	background-color:#323232;
+/*  width:265px;*/
   width:276px;
   overflow-x:hidden;
 }
@@ -230,7 +231,7 @@ img {
 	background-color:#666666;
 }
 
-#listado li a .seccion {
+#listado li a .seccion , #nota .seccion {
 	color:#0066cc;
 }
 
@@ -281,6 +282,7 @@ div.main_img_container, div.main_foto {
   background-size: cover;
   background-position: center;
   display: block;
+  position: relative;
 }
 
 .imagen_iphone_landscape{
@@ -400,9 +402,6 @@ height:270px;width:480px;
 }
 
 #nota a img {border:none;}
-#nota .seccion {
-	color:#0066cc;
-}
 
 #nota .contenido {
 	padding:10px;
@@ -441,22 +440,18 @@ height:270px;width:480px;
   background-position:center center;
 }
 .media_link .ico_video {
-  /*background-image:url(../img/../img/ico_video.png);*/
   background-image:url(../img/ico_video.png);
 }
 
 .media_link .ico_plus {
-	/*background-image:url(../img/../img/ico_audio.png);*/
 	background-image:url(../img/ico_plus.png);
 }
 
 .media_link .ico_audio {
-	/*background-image:url(../img/../img/ico_audio.png);*/
 	background-image:url(../img/ico_audio.png);
 }
 
 .media_link .ico_galeria {
-  /*background-image:url(../img/../img/ico_galeria.png);*/
   background-image:url(../img/ico_galeria.png);
 }
 
@@ -598,3 +593,85 @@ CLASIFICADOS
   z-index:3;
 }
 
+/* ---------------------------------------- */
+/* BEGIN CASTELLANOS ---------------------- */
+.castellanos #listado li a .seccion , .castellanos  #nota .seccion {
+	color:#002d58!important;
+}
+.castellanos .media_link .ico_video {
+  background-image:url(../img/ico_video_castellanos.png) !important;
+}
+.castellanos .media_link .ico_plus {
+	background-image:url(../img/ico_plus_castellanos.png) !important;
+}
+.castellanos .media_link .ico_audio {
+	background-image:url(../img/ico_audio_castellanos.png) !important;
+}
+.castellanos .media_link .ico_galeria {
+  background-image:url(../img/ico_galeria_castellanos.png) !important;
+}
+.castellanos .media_link .ico_video, .castellanos .media_link .ico_audio, .castellanos .media_link .ico_galeria , .castellanos .media_link .ico_plus {
+  background-color:#002d58;
+}
+.castellanos #titulo_seccion {
+	background-color:#002d58;
+}
+
+/* END CASTELLANOS ------------------------ */
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+
+/* ---------------------------------------- */
+/* BEGIN PREGON --------------------------- */
+.pregon #listado li a .seccion , .pregon #nota .seccion {
+	color:#1066b0!important;
+}
+.pregon .media_link .ico_video {
+  background-image:url(../img/ico_video_pregon.png) !important;
+}
+.pregon .media_link .ico_plus {
+	background-image:url(../img/ico_plus_pregon.png) !important;
+}
+.pregon .media_link .ico_audio {
+	background-image:url(../img/ico_audio_pregon.png) !important;
+}
+.pregon .media_link .ico_galeria {
+  background-image:url(../img/ico_galeria_pregon.png) !important;
+}
+.pregon .media_link .ico_video, .pregon .media_link .ico_audio, .pregon .media_link .ico_galeria , .pregon .media_link .ico_plus {
+  background-color:#1066b0;
+}
+.pregon #titulo_seccion {
+	background-color:#cb1f26;
+}
+/* END PREGON ----------------------------- */
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+/* BEGIN ECOS --------------------------- */
+.ecosdiarios #listado li a .seccion , .ecosdiarios  #nota .seccion {
+	color:#0c78dc!important;
+}
+.ecosdiarios .media_link .ico_video {
+  background-image:url(../img/ico_video_ecosdiarios.png) !important;
+}
+.ecosdiarios .media_link .ico_plus {
+	background-image:url(../img/ico_plus_ecosdiarios.png) !important;
+}
+.ecosdiarios .media_link .ico_audio {
+	background-image:url(../img/ico_audio_ecosdiarios.png) !important;
+}
+.ecosdiarios .media_link .ico_galeria {
+  background-image:url(../img/ico_galeria_ecosdiarios.png) !important;
+}
+.ecosdiarios .media_link .ico_video, .ecosdiarios .media_link .ico_audio, .ecosdiarios .media_link .ico_galeria , .ecosdiarios .media_link .ico_plus {
+  background-color:#0c78dc;
+}
+.ecosdiarios #titulo_seccion {
+	background-color:#3c3838;
+}
+/* END ECOS ----------------------------- */
+/* ---------------------------------------- */
+/* ---------------------------------------- */
