@@ -34,6 +34,7 @@ h2 { font-size:2em; line-height:1.1em; margin:0 0 10px 0;}
 
 .fecha { color:#666; font-size:1.25em;}
 .seccion { color:#0066cc;font-size:1.25em;}
+#index .nota_principal .seccion{	color:#ffffff;}
 .subtitulo { font-weight:bold; font-size:1.5em; line-height:1.5em;}
 .contenido{ font-weight:normal; font-size:1.5em; line-height:1.5em;}
 .separador { clear:both; height:20px;}
@@ -719,3 +720,48 @@ CLASIFICADOS
 	border-top:#C3C3C3 solid 1px;
 	border-bottom:none;
 }  
+
+/* -------------------------------------------------------------------------------- */
+/* BEGIN CASTELLANOS ---------------------- */
+.castellanos #index .nota_principal .seccion{	color:#e5e7e9;}
+.castellanos .seccion { 	color:#002d58;}
+.castellanos .media_link .ico_video {  background-image:url(../img/ico_video_castellanos.png) !important;}
+.castellanos .media_link .ico_plus {	background-image:url(../img/ico_plus_castellanos.png) !important;}
+.castellanos .media_link .ico_audio {	background-image:url(../img/ico_audio_castellanos.png) !important;}
+.castellanos .media_link .ico_galeria {  background-image:url(../img/ico_galeria_castellanos.png) !important;}
+.castellanos .media_link .ico_video, .castellanos .media_link .ico_audio, .castellanos .media_link .ico_galeria , .castellanos .media_link .ico_plus {
+  background-color:#002d58;
+}
+
+/* END CASTELLANOS ------------------------ */
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+
+/* -------------------------------------------------------------------------------- */
+/* BEGIN PREGON --------------------------- */
+.pregon #index .nota_principal .seccion {	color:#1066b0!important;}
+.pregon .media_link .ico_video {  background-image:url(../img/ico_video_pregon.png) !important;}
+.pregon .media_link .ico_plus {	background-image:url(../img/ico_plus_pregon.png) !important;}
+.pregon .media_link .ico_audio {	background-image:url(../img/ico_audio_pregon.png) !important;}
+.pregon .media_link .ico_galeria {  background-image:url(../img/ico_galeria_pregon.png) !important;}
+.pregon .media_link .ico_video, .pregon .media_link .ico_audio, .pregon .media_link .ico_galeria , .pregon .media_link .ico_plus {
+  background-color:#1066b0;
+}
+/* END PREGON ----------------------------- */
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+/* -------------------------------------------------------------------------------- */
+/* BEGIN ECOS --------------------------- */
+.ecosdiarios #index .nota_principal .seccion  {	color:#0c78dc!important;}
+.ecosdiarios .media_link .ico_video {  background-image:url(../img/ico_video_ecosdiarios.png) !important;}
+.ecosdiarios .media_link .ico_plus {	background-image:url(../img/ico_plus_ecosdiarios.png) !important;}
+.ecosdiarios .media_link .ico_audio {	background-image:url(../img/ico_audio_ecosdiarios.png) !important;}
+.ecosdiarios .media_link .ico_galeria {  background-image:url(../img/ico_galeria_ecosdiarios.png) !important;}
+.ecosdiarios .media_link .ico_video, .ecosdiarios .media_link .ico_audio, .ecosdiarios .media_link .ico_galeria , .ecosdiarios .media_link .ico_plus {
+  background-color:#0c78dc;
+}
+/* END ECOS ----------------------------- */
+/* ---------------------------------------- */
+/* ---------------------------------------- */
