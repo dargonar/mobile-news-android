@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
@@ -43,8 +44,8 @@ public class ClassifiedActivity extends BaseActivity implements OnClickListener 
       
       mClassifiedShown = false;
       setContentView(R.layout.classified_content);
-    
       setupViews();
+      addAdView();
 
       try {
         mUrl = getIntent().getExtras().getString("url");

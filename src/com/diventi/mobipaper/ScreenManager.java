@@ -183,6 +183,11 @@ public class ScreenManager {
     {
       String name = entry.getName();
       cache.put(name, IOUtils.toByteArray(zis));
+      
+      if(name == "config.json") {
+        MobiPaperApp.loadConfigJson();
+      }
+      
       entry = zis.getNextEntry();
     }
     

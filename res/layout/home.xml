@@ -18,6 +18,7 @@
   
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_home"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -35,5 +36,5 @@
         />
 
 	<include layout="@layout/splash"/>
-    
+	
 </RelativeLayout>

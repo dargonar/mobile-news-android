@@ -80,6 +80,9 @@ public class BaseWebView extends WebView {
   protected void onSizeChanged(int w, int h, int ow, int oh) {
     super.onSizeChanged(w, h, ow, oh);
     
+    if(isInEditMode())
+      return;
+    
     if(w==0 || h ==0)
       return;
     
@@ -119,6 +122,9 @@ public class BaseWebView extends WebView {
   @SuppressLint("SetJavaScriptEnabled")
   public void SetParams()
   {
+    if(isInEditMode())
+      return;
+    
     count = Integer.valueOf(0);
     
     WebSettings settings = this.getSettings();

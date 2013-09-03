@@ -2,6 +2,10 @@ package com.diventi.mobipaper;
 
 import java.io.File;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.bugsense.trace.BugSenseHandler;
 import com.diventi.mobipaper.cache.DiskCache;
 
@@ -19,6 +23,8 @@ public class MobiPaperApp extends Application {
   private static boolean mYoutubeInstalled;
   private static String mAppId;
   private static String mMediaVersion;
+  private static String   mAdMob = "";
+  private static String[] mGoogleAnalytics = new String[]{""};
   
   @Override
   public void onCreate() {
@@ -37,6 +43,42 @@ public class MobiPaperApp extends Application {
     
     mAppId = getApplicationInfo().packageName;
     mMediaVersion = mDiskCache.getMediaVersion();
+    
+    loadConfigJson();
+  }
+  
+  public static void loadConfigJson() {
+    try {
+
+      DiskCache cache = DiskCache.getInstance();
+      byte[] data = cache.get("config","json");
+      
+      if(data == null)
+        return;
+      
+      JSONObject obj = new JSONObject(new String(data));
+      mAdMob = ((JSONObject)obj.get("android")).getString("ad_mob");
+      
+      JSONArray arr = ((JSONObject)obj.get("android")).getJSONArray("google_analytics");
+      
+      mGoogleAnalytics = new String[arr.length()];
+      for(int i=0; i<arr.length(); i++)
+      {
+        mGoogleAnalytics[i] = arr.getString(i);
+      }
+      
+    } catch (JSONException e) {
+      
+    }
+
+  }
+  
+  public static String getAdmob() {
+    return mAdMob;
+  }
+
+  public static String[] getGoogleAnalytics() {
+    return mGoogleAnalytics;
   }
   
   public static DiskCache getCache() {

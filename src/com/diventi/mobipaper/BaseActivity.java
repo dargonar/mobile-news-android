@@ -1,11 +1,13 @@
 package com.diventi.mobipaper;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.StreamCorruptedException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,15 +17,21 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
 import com.bugsense.trace.BugSenseHandler;
+import com.diventi.eldia.R;
+import com.diventi.mobipaper.ad.MyAdView;
 import com.diventi.mobipaper.cache.DiskCache;
 import com.diventi.utils.Network;
 import com.diventi.utils.NoNetwork;
 import com.diventi.utils.SHA1;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BinaryHttpResponseHandler;
-
-public class BaseActivity extends Activity {
+import com.google.ads.*;
+import com.google.ads.AdRequest.ErrorCode;
+public class BaseActivity extends Activity  {
 
   @SuppressWarnings("unused")
   private static final String TAG = "BaseActivity";
@@ -31,6 +39,8 @@ public class BaseActivity extends Activity {
   protected BaseWebView    mWebView;
   protected ScreenManager  mScreenManager = new ScreenManager();
 
+  protected AdView       mAdView = null;
+  
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -38,12 +48,72 @@ public class BaseActivity extends Activity {
     Configuration conf = getResources().getConfiguration();
     
     mScreenManager.IsBig((conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
-    mScreenManager.IsLandscape(conf.orientation == Configuration.ORIENTATION_LANDSCAPE);    
+    mScreenManager.IsLandscape(conf.orientation == Configuration.ORIENTATION_LANDSCAPE);
+    
+//        <com.google.ads.AdView
+//        android:id="@+id/adView"
+//        android:layout_width="wrap_content"
+//        android:layout_height="wrap_content"
+//        android:layout_alignParentBottom="true"
+//        android:layout_alignParentLeft="true"
+//        android:visibility="gone"
+//        ads:adSize="BANNER"
+//        ads:adUnitId="PUTIDHERE"
+//        ads:loadAdOnCreate="false"
+//        ads:testDevices="TEST_EMULATOR, TEST_DEVICE_ID" >
+//    </com.google.ads.AdView>
+
+        //AdRequest req = new AdRequest();
+        //req.set
+        //mAdView.
+        //mAdView
+        //mAdView.adun
+        
+//        runOnUiThread( new Runnable() {
+//          @Override
+//          public void run() {
+//            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)mWebView.getLayoutParams();
+//            params.addRule(RelativeLayout.ABOVE, mAdView.getId());
+//            mWebView.setLayoutParams(params);
+//          }
+//        });
+//      }
+//    }
+  }
+  
+  public void addAdView() {
+    
+    String code = MobiPaperApp.getAdmob();
+    if(code.length() == 0)
+      return;
+    
+    RelativeLayout layout = (RelativeLayout)findViewById(R.id.main_view);
+    
+    AdView adView = new AdView(this, AdSize.BANNER, code);
+    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+    params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+    params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+    adView.setId(1001);
+    layout.addView(adView, params);
+    
+    adView.loadAd(new AdRequest());
+    
+    RelativeLayout.LayoutParams wvparams = (RelativeLayout.LayoutParams)mWebView.getLayoutParams();
+    wvparams.addRule(RelativeLayout.ABOVE, adView.getId());
+    mWebView.setLayoutParams(wvparams);    
   }
   
   public void enableRotation(Activity activity)
   {
     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+  }
+  
+  @Override
+  public void onDestroy() {
+    if (mAdView != null) {
+      mAdView.destroy();
+    }
+    super.onDestroy();
   }
   
   protected void loadImages(ArrayList<String> images) {
@@ -233,7 +303,6 @@ public class BaseActivity extends Activity {
         
     return false;
   }
-
 
   
 }

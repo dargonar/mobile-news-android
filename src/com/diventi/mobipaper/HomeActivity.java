@@ -4,20 +4,27 @@ import com.diventi.eldia.R;
 import java.io.File;
 import java.io.IOException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.diventi.mobipaper.cache.DiskCache;
 import com.diventi.mobipaper.menu.MenuWebView;
 import com.diventi.mobipaper.ui.ActionsContentProvider;
 import com.diventi.mobipaper.ui.ActionsContentView;
 import com.diventi.utils.SHA1;
 import com.diventi.utils.TimeDiff;
+import com.google.ads.Ad;
 
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class HomeActivity extends BaseActivity implements OnClickListener, SectionHandler {
@@ -41,7 +48,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 	  private View               mSplash;
 	  
 	  private String mCurrentSectionUrl = MAIN_URL;
-	  
+
 	  @Override
 	  protected void onSaveInstanceState (Bundle outState) {
 	      super.onSaveInstanceState(outState);
@@ -63,7 +70,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 	    
 	    checkHTMLResources();
 	  }
-
+	  
 	  private void checkHTMLResources() {
 	    
 	     Thread t = new Thread(){ 
@@ -118,6 +125,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 	  public void onCreateEx(String url) {
 
 	    setupViews();
+	    addAdView();
 	    
 	    if(htmlResourcesError != null) {
 	      showSplashError(false, htmlResourcesError);
@@ -186,10 +194,10 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
         String js = String.format("javascript:setTimeout(function(){show_actualizado('%s')},1000)", TimeDiff.timeAgo(section_date));
         mWebView.loadUrl(js);
         
-        if ( TimeDiff.minutesSince(section_date) > 15 )
-        {
-          loadSection(url, false, false);
-        }
+//        if ( TimeDiff.minutesSince(section_date) > 15 )
+//        {
+//          loadSection(url, false, false);
+//        }
        
       }
     }
@@ -295,15 +303,20 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
     
     
     private void OnRefresh() {
-      if(mCurrentSectionUrl.startsWith("page://"))
-        onShowPage(mCurrentSectionUrl);
-      else {
-        
-        if(mCurrentSectionUrl == MAIN_URL)
-          mBtnOptions.setEnabled(false);
-        
-        loadSection(mCurrentSectionUrl, false, true);
-      }
+      
+//      RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)mWebView.getLayoutParams();
+//      params.addRule(RelativeLayout.ABOVE, R.id.adView);
+//      mWebView.setLayoutParams(params);
+      
+//      if(mCurrentSectionUrl.startsWith("page://"))
+//        onShowPage(mCurrentSectionUrl);
+//      else {
+//        
+//        if(mCurrentSectionUrl == MAIN_URL)
+//          mBtnOptions.setEnabled(false);
+//        
+//        loadSection(mCurrentSectionUrl, false, true);
+//      }
     }
     
     private void OnOptions() {

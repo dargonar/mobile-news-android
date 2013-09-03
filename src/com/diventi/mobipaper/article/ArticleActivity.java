@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
@@ -47,8 +48,8 @@ public class ArticleActivity extends BaseActivity implements OnClickListener {
       
       mArticleShown = false;
       setContentView(R.layout.article_content);
-    
       setupViews();
+      addAdView();
 
       try {
         String tmp0 = getIntent().getExtras().getString("url");
