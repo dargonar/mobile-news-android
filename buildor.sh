@@ -43,15 +43,20 @@ do
     cp $IMAGES/$i/logo.png $FOLDER/res/drawable/logo.png
     cp $IMAGES/$i/logo@2x.png $FOLDER/res/drawable/logo_solo.png
 
-    cp $IMAGES/$i/android/icon.png $FOLDER/res/drawable
-    cp $IMAGES/$i/android/back.png $FOLDER/res/drawable
-    cp $IMAGES/$i/android/list.png $FOLDER/res/drawable
-    cp $IMAGES/$i/android/refresh.png $FOLDER/res/drawable
-    cp $IMAGES/$i/android/refresh.png $FOLDER/res/drawable
-    cp $IMAGES/$i/android/share.png $FOLDER/res/drawable
-    cp $IMAGES/$i/android/warning.48x48.png $FOLDER/res/drawable
+    ii=$i
+    if [ $i == "castellanos" ]; then
+      ii=castellanos_dark
+    fi
 
-    BG=`head -c 7 $IMAGES/$i/bg.rgb`
+    cp $IMAGES/$ii/android/icon.png $FOLDER/res/drawable
+    cp $IMAGES/$ii/android/back.png $FOLDER/res/drawable
+    cp $IMAGES/$ii/android/list.png $FOLDER/res/drawable
+    cp $IMAGES/$ii/android/refresh.png $FOLDER/res/drawable
+    cp $IMAGES/$ii/android/refresh.png $FOLDER/res/drawable
+    cp $IMAGES/$ii/android/share.png $FOLDER/res/drawable
+    cp $IMAGES/$ii/android/warning.48x48.png $FOLDER/res/drawable
+
+    BG=`head -c 7 $IMAGES/$ii/bg.rgb`
     for f in `find $FOLDER/res -name "*.xml" | xargs grep -l "#3479c9"`; do
       perl -pi -e "s/#3479c9/$BG/g" $f
     done

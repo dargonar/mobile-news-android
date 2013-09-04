@@ -22,7 +22,6 @@ import android.widget.RelativeLayout;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.diventi.eldia.R;
-import com.diventi.mobipaper.ad.MyAdView;
 import com.diventi.mobipaper.cache.DiskCache;
 import com.diventi.utils.Network;
 import com.diventi.utils.NoNetwork;
