@@ -214,7 +214,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:actions_layout
+          @attr name com.diventi.eldia:actions_layout
         */
         public static final int ActionsContentView_actions_layout = 3;
         /**
@@ -232,7 +232,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:actions_spacing
+          @attr name com.diventi.eldia:actions_spacing
         */
         public static final int ActionsContentView_actions_spacing = 2;
         /**
@@ -244,7 +244,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:content_layout
+          @attr name com.diventi.eldia:content_layout
         */
         public static final int ActionsContentView_content_layout = 4;
         /**
@@ -262,7 +262,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:spacing
+          @attr name com.diventi.eldia:spacing
         */
         public static final int ActionsContentView_spacing = 1;
         /**
@@ -281,7 +281,7 @@ containing a value of this type.
 <tr><td><code>actions_width</code></td><td>1</td><td> Spacing will be calculated as right bound of actions container. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:spacing_type
+          @attr name com.diventi.eldia:spacing_type
         */
         public static final int ActionsContentView_spacing_type = 0;
         /** Attributes that can be used with a RemoteImageView.
@@ -290,7 +290,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #RemoteImageView_android_indeterminateDrawable com.diventi.eldia:android_indeterminateDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #RemoteImageView_android_indeterminateDrawable android:indeterminateDrawable}</code></td><td></td></tr>
            </table>
            @see #RemoteImageView_android_indeterminateDrawable
          */
@@ -298,9 +298,9 @@ containing a value of this type.
             0x0101013b
         };
         /**
-          <p>This symbol is the offset where the {@link com.diventi.eldia.R.attr#android_indeterminateDrawable}
+          <p>This symbol is the offset where the {@link android.R.attr#indeterminateDrawable}
           attribute's value can be found in the {@link #RemoteImageView} array.
-          @attr name android:android_indeterminateDrawable
+          @attr name android:indeterminateDrawable
         */
         public static final int RemoteImageView_android_indeterminateDrawable = 0;
     };
