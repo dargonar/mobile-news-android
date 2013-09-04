@@ -724,7 +724,19 @@ CLASIFICADOS
 /* -------------------------------------------------------------------------------- */
 /* BEGIN CASTELLANOS ---------------------- */
 .castellanos #index .nota_principal .seccion{	color:#e5e7e9;}
-.castellanos .seccion { 	color:#002d58;}
+.castellanos #clasificados .columna .encabezado .rubro,
+  .castellanos #clasificados .columna .encabezado .titulo,
+  .castellanos #clasificados .columna .encabezado .calendario:hover,
+  .castellanos .seccion,
+  .castellanos #index .menu li .selected,
+  .castellanos #index .menu li a:active,
+  .castellanos #landscape .menu li a:active ,
+  .castellanos #landscape .menu li .selected ,
+  .castellanos #menu li a:active,
+  .castellanos #menu li.selected ,
+  .castellanos #menu li a.seccion:hover,
+  .castellanos #menu li a.seccion:active ,
+  .castellanos #clasificados .fecha { 	color:#002d58;}
 .castellanos .media_link .ico_video {  background-image:url(../img/ico_video_castellanos.png) !important;}
 .castellanos .media_link .ico_plus {	background-image:url(../img/ico_plus_castellanos.png) !important;}
 .castellanos .media_link .ico_audio {	background-image:url(../img/ico_audio_castellanos.png) !important;}
@@ -740,7 +752,20 @@ CLASIFICADOS
 
 /* -------------------------------------------------------------------------------- */
 /* BEGIN PREGON --------------------------- */
-.pregon #index .nota_principal .seccion {	color:#1066b0!important;}
+.pregon #clasificados .columna .encabezado .rubro,
+  .pregon #clasificados .columna .encabezado .titulo,
+  .pregon #clasificados .columna .encabezado .calendario:hover,
+  .pregon .seccion,
+  .pregon #index .menu li .selected,
+  .pregon #index .menu li a:active,
+  .pregon #landscape .menu li a:active ,
+  .pregon #landscape .menu li .selected ,
+  .pregon #menu li a:active,
+  .pregon #menu li.selected ,
+  .pregon #menu li a.seccion:hover,
+  .pregon #menu li a.seccion:active ,
+  .pregon #clasificados .fecha, 
+  .pregon #index .nota_principal .seccion {	color:#1066b0!important;}
 .pregon .media_link .ico_video {  background-image:url(../img/ico_video_pregon.png) !important;}
 .pregon .media_link .ico_plus {	background-image:url(../img/ico_plus_pregon.png) !important;}
 .pregon .media_link .ico_audio {	background-image:url(../img/ico_audio_pregon.png) !important;}
@@ -754,7 +779,20 @@ CLASIFICADOS
 
 /* -------------------------------------------------------------------------------- */
 /* BEGIN ECOS --------------------------- */
-.ecosdiarios #index .nota_principal .seccion  {	color:#0c78dc!important;}
+.ecosdiarios #clasificados .columna .encabezado .rubro,
+  .ecosdiarios #clasificados .columna .encabezado .titulo,
+  .ecosdiarios #clasificados .columna .encabezado .calendario:hover,
+  .ecosdiarios .seccion,
+  .ecosdiarios #index .menu li .selected,
+  .ecosdiarios #index .menu li a:active,
+  .ecosdiarios #landscape .menu li a:active ,
+  .ecosdiarios #landscape .menu li .selected ,
+  .ecosdiarios #menu li a:active,
+  .ecosdiarios #menu li.selected ,
+  .ecosdiarios #menu li a.seccion:hover,
+  .ecosdiarios #menu li a.seccion:active ,
+  .ecosdiarios #clasificados .fecha ,
+  .ecosdiarios #index .nota_principal .seccion  {	color:#0c78dc!important;}
 .ecosdiarios .media_link .ico_video {  background-image:url(../img/ico_video_ecosdiarios.png) !important;}
 .ecosdiarios .media_link .ico_plus {	background-image:url(../img/ico_plus_ecosdiarios.png) !important;}
 .ecosdiarios .media_link .ico_audio {	background-image:url(../img/ico_audio_ecosdiarios.png) !important;}
