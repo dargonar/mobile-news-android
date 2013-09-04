@@ -12,13 +12,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class BaseWebView extends WebView {
-  
-  private static final String TAG  = "BaseWebView";
-  
-  public class MyWebViewClient extends WebViewClient {
-    
+
+    private static final String TAG  = "BaseWebView";
+
+    public class MyWebViewClient extends WebViewClient {
+
     private BaseWebView mBase;
-    MyWebViewClient(BaseWebView base) {
+    public MyWebViewClient(BaseWebView base) {
       mBase = base;
     }
     

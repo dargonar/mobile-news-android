@@ -17,6 +17,7 @@ import com.google.ads.Ad;
 
 import android.os.Bundle;
 import android.util.JsonReader;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -126,17 +127,16 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 
 	    setupViews();
 	    addAdView();
-	    
-	    if(htmlResourcesError != null) {
-	      showSplashError(false, htmlResourcesError);
-	      return;
-	    }
-	    
-	    if( mScreenManager.sectionExists(url) ) {
-	      onUrlLoaded(url, true, null, ScreenManager.SECTION_PREFIX, false);
-	      return;
-	    }
-      
+
+          if(htmlResourcesError != null) {
+              showSplashError(false, htmlResourcesError);
+              return;
+          }
+          if( mScreenManager.sectionExists(url) ) {
+              onUrlLoaded(url, true, null, ScreenManager.SECTION_PREFIX, false);
+              return;
+          }
+
 	    loadSection(url, false, false);
     }
 
@@ -148,28 +148,28 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 	  @Override
 	  protected void onUrlLoaded(String url, boolean useCache, Exception loadError, String prefix, boolean fromUser) {
 
-      if(loadError == null ) {
-        
-        loadWebView(url, useCache, prefix);
-        
-        if(isSplashShowing())
-          hideSplash();
-        else
-          showLoading(false);
-        
-        return;
-      }
+          if(loadError == null ) {
 
-      //Log.e(TAG, loadError.toString());
-      
-      if(isSplashShowing())
-        showSplashError(false, loadError);
-      else {
-        if( fromUser )
-          showAlert("No se pueden mostrar noticias", loadError);
-        
-        showLoading(false);
-      }
+            loadWebView(url, useCache, prefix);
+
+            if(isSplashShowing())
+              hideSplash();
+            else
+              showLoading(false);
+
+            return;
+          }
+
+          //Log.e(TAG, loadError.toString());
+
+          if(isSplashShowing())
+            showSplashError(false, loadError);
+          else {
+            if( fromUser )
+              showAlert("No se pueden mostrar noticias", loadError);
+
+            showLoading(false);
+          }
 	  }
 
     @Override
@@ -194,11 +194,11 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
         String js = String.format("javascript:setTimeout(function(){show_actualizado('%s')},1000)", TimeDiff.timeAgo(section_date));
         mWebView.loadUrl(js);
         
-//        if ( TimeDiff.minutesSince(section_date) > 15 )
-//        {
-//          loadSection(url, false, false);
-//        }
-       
+        if ( TimeDiff.minutesSince(section_date) > 15 )
+        {
+            Log.i(TAG, "Hace mas de 15 mins .. refreshing");
+            loadSection(url, false, false);
+        }
       }
     }
 
@@ -300,23 +300,9 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
       
     }
 
-    
-    
     private void OnRefresh() {
-      
-//      RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)mWebView.getLayoutParams();
-//      params.addRule(RelativeLayout.ABOVE, R.id.adView);
-//      mWebView.setLayoutParams(params);
-      
-//      if(mCurrentSectionUrl.startsWith("page://"))
-//        onShowPage(mCurrentSectionUrl);
-//      else {
-//        
-//        if(mCurrentSectionUrl == MAIN_URL)
-//          mBtnOptions.setEnabled(false);
-//        
-//        loadSection(mCurrentSectionUrl, false, true);
-//      }
+        mBtnOptions.setEnabled(false);
+        loadSection(mCurrentSectionUrl, false, true);
     }
     
     private void OnOptions() {
