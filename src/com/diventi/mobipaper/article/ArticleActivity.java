@@ -157,7 +157,7 @@ public class ArticleActivity extends BaseActivity implements OnClickListener {
         return;
       
       super.onBackPressed();
-    };
+    }
     
     private void OnBack() {
       onBackPressed();
@@ -177,7 +177,7 @@ public class ArticleActivity extends BaseActivity implements OnClickListener {
       showLoading(false);
       
       if(loadError == null ) {
-        loadWebView(url, useCache, prefix);
+        loadWebView(url, useCache, prefix, fromUser);
         return;
       }
 
@@ -193,7 +193,7 @@ public class ArticleActivity extends BaseActivity implements OnClickListener {
     }
 
     @Override
-    protected void onWebViewLoaded(String url, boolean useCache) {
+    protected void onWebViewLoaded(String url, boolean useCache, boolean fromUser) {
       mBtnBack.setVisibility(View.VISIBLE);
       mArticleShown = true;
     }

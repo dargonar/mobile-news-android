@@ -1,12 +1,15 @@
 var metayi;
 var tmp_element;
+
 function hasClass(el, name) {
   return new RegExp('(\\s|^)'+name+'(\\s|$)').test(el.className);
 }
+
 function addClass(el, name)
 {
   if (!hasClass(el, name)) { el.className += (el.className ? ' ' : '') +name; }
 }
+
 function removeClass(el, name)
 {
   if (hasClass(el, name)) {
@@ -51,7 +54,7 @@ function update_image(img) {
 }
 
 function onLoad(page_name) {
-  console.error('ONLOADJS ' + page_name);
+  //console.error('ONLOADJS ' + page_name);
   update_all_images();
   jsinterface.onLoad();
 }
@@ -65,7 +68,7 @@ function update_all_images() {
 
 function resize()
 {
-  console.error('Estoy dentro de RESIZE ' + document.body.getBoundingClientRect().width );
+  //console.error('Estoy dentro de RESIZE ' + document.body.getBoundingClientRect().width );
   jsinterface.onResize(document.body.getBoundingClientRect().width);
 }
 
@@ -90,4 +93,9 @@ function show_actualizado(msg){
   el.innerHTML = msg;
   el.style.display = 'block';
   timeout_var=setTimeout(function(){el.style.display = 'none';},3000);
+}
+
+function text_size(s1, s2) {
+  document.getElementById('informacion').style.fontSize= s1;
+  document.getElementById('bajada').style.fontSize= s2;
 }

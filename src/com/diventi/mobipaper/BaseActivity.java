@@ -93,8 +93,23 @@ public class BaseActivity extends Activity  {
     params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
     params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
     adView.setId(1001);
-    layout.addView(adView, params);
-    
+
+    if( layout.findViewById(R.id.toolbar) != null ) {
+        int count = layout.getChildCount();
+        int index = 0;
+        for(int i=0; i<count; i++) {
+            if( R.id.toolbar == layout.getChildAt(i).getId() )
+            {
+                index = i;
+                break;
+            }
+        }
+
+        layout.addView(adView, index, params);
+    } else {
+        layout.addView(adView, params);
+    }
+
     adView.loadAd(new AdRequest());
     
     RelativeLayout.LayoutParams wvparams = (RelativeLayout.LayoutParams)mWebView.getLayoutParams();
@@ -104,7 +119,7 @@ public class BaseActivity extends Activity  {
   
   public void enableRotation(Activity activity)
   {
-    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+    //activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
   }
   
   @Override
@@ -233,7 +248,7 @@ public class BaseActivity extends Activity  {
     return "Contenido no disponible";
   }
 
-  protected void loadWebView(final String url, boolean useCache, String prefix) {
+  protected void loadWebView(final String url, boolean useCache, String prefix, boolean fromuser) {
     
     DiskCache cache = DiskCache.getInstance();      
     File html = new File(cache.getFolder(), SHA1.sha1(url) + "." + prefix );
@@ -255,10 +270,10 @@ public class BaseActivity extends Activity  {
 
     }
     
-    onWebViewLoaded(url, useCache);
+    onWebViewLoaded(url, useCache, fromuser);
   }
 
-  protected void onWebViewLoaded(String url, boolean useCache) {
+  protected void onWebViewLoaded(String url, boolean useCache, boolean fromuser) {
 
   }
   

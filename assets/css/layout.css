@@ -589,7 +589,7 @@ CLASIFICADOS
   text-align:right; 
   display:none; 
   position:absolute;
-  top:0px;
+  /*top:0px;*/
   z-index:3;
 }
 

@@ -8,8 +8,9 @@ public class TimeDiff {
 
     Date now = new Date();
     long seconds = Math.round( Math.abs(now.getTime() - from)/1000 );
-    
-    return seconds/60;
+
+    return seconds;
+    //return seconds/60;
   }
   
   public static String timeAgo(long from) {

@@ -4,11 +4,11 @@ IMAGES=../MobiPaperWeb/ElDia/images/
 #declare -a apps=('eldia' 'pregon' 'ecosdiarios' 'castellanos');
 #declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
 
-#declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos');
-#declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
+declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos');
+declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
 
-declare -a apps=('eldia'  'pregon');
-declare -a desc=('El Dia' 'Pregon');
+#declare -a apps=('eldia'  'pregon');
+#declare -a desc=('El Dia' 'Pregon');
 
 #declare -a apps=('pregon');
 #declare -a desc=('Pregon');

@@ -162,7 +162,7 @@ public class ClassifiedActivity extends BaseActivity implements OnClickListener 
       showLoading(false);
       
       if(loadError == null ) {
-        loadWebView(url, useCache, prefix);
+        loadWebView(url, useCache, prefix, fromUser);
         
         //Mandamos a refrescar si vino de cache y es viejo
         if(useCache == true && isOldThanSeconds(mScreenManager.classifiedDate(url), 86400) ) {
@@ -185,7 +185,7 @@ public class ClassifiedActivity extends BaseActivity implements OnClickListener 
     }
 
     @Override
-    protected void onWebViewLoaded(String url, boolean useCache) {
+    protected void onWebViewLoaded(String url, boolean useCache, boolean mFromUser) {
       mBtnBack.setVisibility(View.VISIBLE);
       mClassifiedShown = true;
     }

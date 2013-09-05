@@ -25,7 +25,7 @@ public class ArticleWebView extends BaseWebView
   private float mTextSize = 1.0f;
 
   public void updateTextSize() {
-    String js_text = String.format("javascript:text_size('%.2f', '%.2f')", mTextSize, mTextSize+0.2f);
+    String js_text = String.format("javascript:text_size('%.2fem', '%.2fem')", mTextSize, mTextSize+0.2f);
     loadUrl(js_text);
   }
   

@@ -27,15 +27,18 @@
         </activity>
         
         <activity android:name="com.diventi.mobipaper.article.ArticleActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar"
             />
 
 		<activity android:name="com.diventi.mobipaper.gallery.GalleryActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar"
             />
 		
 		<activity android:name="com.diventi.mobipaper.classified.ClassifiedActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar"
             />
 
 		<activity android:name="com.google.ads.AdActivity"

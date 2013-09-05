@@ -4,6 +4,8 @@ import com.diventi.mobipaper.BaseWebView;
 import com.diventi.mobipaper.SectionHandler;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.webkit.WebView;
 
@@ -36,13 +38,13 @@ public class MenuWebView extends BaseWebView {
       return true;
     }
 
-    if( url.startsWith("page://") )
+    if( url.startsWith("http://") || url.startsWith("https://") )
     {
       mSectionHandler.onShowPage(url);
       return true;
     }
     
-    return false;
+    return true;
   }
   
   private SectionHandler mSectionHandler;

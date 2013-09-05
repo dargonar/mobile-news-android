@@ -95,7 +95,7 @@ public class BaseWebView extends WebView {
   {
     synchronized (count) {
       count++;
-      Log.e(TAG, "===>Dentro de TryToResize " + count.toString());      
+      //Log.e(TAG, "===>Dentro de TryToResize " + count.toString());
       if(count==2)
       {  
         count--;
@@ -109,7 +109,7 @@ public class BaseWebView extends WebView {
       }
       else
       {
-        Log.e(TAG, "===> NO->CAMINA->NO");
+        //Log.e(TAG, "===> NO->CAMINA->NO");
       }
     }    
   }
@@ -168,7 +168,7 @@ public class BaseWebView extends WebView {
       int width = mWebView.getWidth();
       final Double val = 100d * (Double.valueOf(width)/Double.valueOf(doc_width));
       
-      Log.e(TAG, String.format("Voy a cambiar el view en %d/%d = %d", width, doc_width, val.intValue()));
+      //Log.e(TAG, String.format("Voy a cambiar el view en %d/%d = %d", width, doc_width, val.intValue()));
       
       mActivity.runOnUiThread( new Runnable() {
         @Override
@@ -185,7 +185,7 @@ public class BaseWebView extends WebView {
 
     public void onLoad()
     {
-      Log.e(TAG, "---->ONLOAD<-----(the maku)");
+      //Log.e(TAG, "---->ONLOAD<-----(the maku)");
       mWebView.TryToResize();
       
     }

@@ -15,6 +15,8 @@ import com.diventi.utils.SHA1;
 import com.diventi.utils.TimeDiff;
 import com.google.ads.Ad;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
@@ -25,6 +27,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+//import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,7 +44,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 	  private ImageView          mImgRefreshLoading;
 	  private ActionsContentView mActionsView;
 	  private MenuWebView        mMenuWebView;
-
+      //private ProgressBar        mProgressBar;
 	  private ImageView          mImgLoading;
 	  private ImageView          mImgWarning;
 	  private Button             mBtnRetry;
@@ -149,14 +152,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 	  protected void onUrlLoaded(String url, boolean useCache, Exception loadError, String prefix, boolean fromUser) {
 
           if(loadError == null ) {
-
-            loadWebView(url, useCache, prefix);
-
-            if(isSplashShowing())
-              hideSplash();
-            else
-              showLoading(false);
-
+            loadWebView(url, useCache, prefix, fromUser);
             return;
           }
 
@@ -167,13 +163,14 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
           else {
             if( fromUser )
               showAlert("No se pueden mostrar noticias", loadError);
-
+            mBtnOptions.setEnabled(true);
             showLoading(false);
           }
 	  }
 
     @Override
     protected void onUrlLoading() {
+      //Log.e(TAG, "--- onURLLOADING ---");
       if(isSplashShowing())
         showSplashError(true, null);
       else
@@ -181,25 +178,26 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
     }
     
     @Override
-    protected void onWebViewLoaded(String url, boolean useCache) {
-      
-      //mostrar de cuando es la actualizacion
-      if( url.startsWith("section://")   ) 
-      {
-        long section_date = mScreenManager.sectionDate(url);
-        
-        if( url == MAIN_URL )
-          loadMenu();
+    protected void onWebViewLoaded(String url, boolean useCache, boolean fromUser) {
 
-        String js = String.format("javascript:setTimeout(function(){show_actualizado('%s')},1000)", TimeDiff.timeAgo(section_date));
-        mWebView.loadUrl(js);
-        
-        if ( TimeDiff.minutesSince(section_date) > 15 )
+        if(isSplashShowing())
+            hideSplash();
+        else
+            showLoading(false);
+
+        long section_date = mScreenManager.sectionDate(url);
+        loadMenu();
+
+        if ( TimeDiff.minutesSince(section_date) > 10 /*2*60*/ )
         {
-            Log.i(TAG, "Hace mas de 15 mins .. refreshing");
-            loadSection(url, false, false);
+            loadSection(mCurrentSectionUrl, false, false);
         }
-      }
+        else
+        {
+            String js = String.format("javascript:setTimeout(function(){show_actualizado('%s')},1000)", TimeDiff.timeAgo(section_date));
+            mWebView.loadUrl(js);
+        }
+
     }
 
     private boolean isSplashShowing() {
@@ -242,6 +240,8 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
       mBtnRetry.setOnClickListener(this);
       
       mTxtMessage = (TextView)findViewById(R.id.txt_splash_msg);
+
+      //mProgressBar = (ProgressBar)findViewById(R.id.img_section_loading);
 
       //------------------------------------------------------------
       
@@ -315,6 +315,10 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 
     private void showLoading(boolean show)
     {
+      //Log.e(TAG, ">>>> SHOWLOADING => " + String.valueOf(show));
+//      if(show && mImgRefreshLoading.getVisibility() == View.VISIBLE)
+//          return;
+
       mImgRefreshLoading.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
       mBtnRefresh.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
 
@@ -326,20 +330,16 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
 
     @Override
     public void onShowSection(String url) {
-      mActionsView.showContent();
-      mCurrentSectionUrl =  url;
-      loadSection(mCurrentSectionUrl, true, true);
+        mActionsView.showContent();
+        mCurrentSectionUrl =  url;
+        loadSection(mCurrentSectionUrl, true, true);
     }
     
     @Override
     public void onShowPage(String url) {
-//      mActionsView.showContent();
-//      mCurrentSectionUrl =  url;
-//
-//      File file = mScreenManager.getPage(url);
-//      String baseUrl = String.format("file://%s", file.getAbsolutePath());
-//
-//      mWebView.loadUrl( baseUrl );
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
     
 }
