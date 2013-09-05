@@ -188,7 +188,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener, Secti
         long section_date = mScreenManager.sectionDate(url);
         loadMenu();
 
-        if ( TimeDiff.minutesSince(section_date) > 10 /*2*60*/ )
+        if ( TimeDiff.minutesSince(section_date) > 2*60 )
         {
             loadSection(mCurrentSectionUrl, false, false);
         }
