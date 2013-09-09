@@ -595,9 +595,15 @@ CLASIFICADOS
 
 /* ---------------------------------------- */
 /* BEGIN CASTELLANOS ---------------------- */
+
+.castellanos #nota  .contenido, .castellanos #nota  #titulo h1 {
+  background-color:#0f243f /* 001652 365c8b 0f243f */; /* nuevo:0e2440 oldy:002d58*/
+  color:#FFFFFF!important;
+}
 .castellanos #clasificados .columna .encabezado .rubro, .castellanos  #clasificados .columna .encabezado .titulo ,
 .castellanos #listado li a .seccion , .castellanos  #nota .seccion {
-	color:#002d58!important;
+	/*color:#002d58!important;*/
+  color:#001652!important;
 }
 .castellanos .media_link .ico_video {
   background-image:url(../img/ico_video_castellanos.png) !important;
@@ -617,6 +623,11 @@ CLASIFICADOS
 .castellanos #titulo_seccion {
 	background-color:#002d58;
 }
+
+.castellanos .nota_abierta #nota  .contenido, .castellanos .nota_abierta #nota  #titulo h1 {  background-color:#dfdfdf;  color:#001652!important;}
+.castellanos .nota_abierta #informacion {  color:#111;}
+.castellanos .nota_abierta  .bajada {  color:#111;  font-weight:bold;}
+.castellanos .nota_abierta  .seccion {  color:#001652;  font-weight:bold;}
 
 /* END CASTELLANOS ------------------------ */
 /* ---------------------------------------- */
