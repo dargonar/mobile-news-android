@@ -595,8 +595,15 @@ CLASIFICADOS
 
 /* ---------------------------------------- */
 /* BEGIN CASTELLANOS ---------------------- */
+
+.castellanos #nota  .contenido, .castellanos #nota  #titulo h1 {
+  background-color:#0f243f /* 001652 365c8b 0f243f */; /* nuevo:0e2440 oldy:002d58*/
+  color:#FFFFFF!important;
+}
+.castellanos #clasificados .columna .encabezado .rubro, .castellanos  #clasificados .columna .encabezado .titulo ,
 .castellanos #listado li a .seccion , .castellanos  #nota .seccion {
-	color:#002d58!important;
+	/*color:#002d58!important;*/
+  color:#001652!important;
 }
 .castellanos .media_link .ico_video {
   background-image:url(../img/ico_video_castellanos.png) !important;
@@ -617,6 +624,11 @@ CLASIFICADOS
 	background-color:#002d58;
 }
 
+.castellanos .nota_abierta #nota  .contenido, .castellanos .nota_abierta #nota  #titulo h1 {  background-color:#dfdfdf;  color:#001652!important;}
+.castellanos .nota_abierta #informacion {  color:#111;}
+.castellanos .nota_abierta  .bajada {  color:#111;  font-weight:bold;}
+.castellanos .nota_abierta  .seccion {  color:#001652;  font-weight:bold;}
+
 /* END CASTELLANOS ------------------------ */
 /* ---------------------------------------- */
 /* ---------------------------------------- */
@@ -624,6 +636,7 @@ CLASIFICADOS
 
 /* ---------------------------------------- */
 /* BEGIN PREGON --------------------------- */
+.pregon #clasificados .columna .encabezado .rubro, .pregon #clasificados .columna .encabezado .titulo ,
 .pregon #listado li a .seccion , .pregon #nota .seccion {
 	color:#1066b0!important;
 }
@@ -651,6 +664,7 @@ CLASIFICADOS
 
 /* ---------------------------------------- */
 /* BEGIN ECOS --------------------------- */
+.ecosdiarios #clasificados .columna .encabezado .rubro, .ecosdiarios #clasificados .columna .encabezado .titulo ,
 .ecosdiarios #listado li a .seccion , .ecosdiarios  #nota .seccion {
 	color:#0c78dc!important;
 }
