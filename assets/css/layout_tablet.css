@@ -725,7 +725,7 @@ CLASIFICADOS
 /* BEGIN CASTELLANOS ---------------------- */
 .castellanos #clasificados .columna .encabezado .rubro,
   .castellanos #clasificados .columna .encabezado .titulo,
-  .castellanos #clasificados .columna .encabezado .calendario:hover,
+  /*.castellanos #clasificados .columna .encabezado .calendario:hover,*/
   .castellanos .seccion,
   .castellanos #index .menu li .selected,
   .castellanos #index .menu li a:active,
@@ -756,7 +756,7 @@ CLASIFICADOS
 /* BEGIN PREGON --------------------------- */
 .pregon #clasificados .columna .encabezado .rubro,
   .pregon #clasificados .columna .encabezado .titulo,
-  .pregon #clasificados .columna .encabezado .calendario:hover,
+  /*.pregon #clasificados .columna .encabezado .calendario:hover,*/
   .pregon .seccion,
   .pregon #index .menu li .selected,
   .pregon #index .menu li a:active,
@@ -783,7 +783,7 @@ CLASIFICADOS
 /* BEGIN ECOS --------------------------- */
 .ecosdiarios #clasificados .columna .encabezado .rubro,
   .ecosdiarios #clasificados .columna .encabezado .titulo,
-  .ecosdiarios #clasificados .columna .encabezado .calendario:hover,
+  /*.ecosdiarios #clasificados .columna .encabezado .calendario:hover,*/
   .ecosdiarios .seccion,
   .ecosdiarios #index .menu li .selected,
   .ecosdiarios #index .menu li a:active,
