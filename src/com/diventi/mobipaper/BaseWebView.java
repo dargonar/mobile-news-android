@@ -41,8 +41,7 @@ public class BaseWebView extends WebView {
 
                 HashMap<String, String> hitParameters = new HashMap<String, String>();
 
-                //hitParameters.put(Fields.HIT_TYPE, url.substring(0, url.indexOf("//")+2));
-                hitParameters.put(Fields.HIT_TYPE, "appview");
+                hitParameters.put(Fields.HIT_TYPE, url.substring(0, url.indexOf("//")+2));
 
                 if(i == 0) { //somos notrosos
                     hitParameters.put(Fields.APP_ID, MobiPaperApp.getAppId());

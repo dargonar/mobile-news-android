@@ -1,5 +1,5 @@
 # Metabuild de apps android
-IMAGES=../MobiPaperWeb/ElDia/images/
+IMAGES=../MobiPaperiOS/ElDia/images/
 
 #declare -a apps=('eldia' 'pregon' 'ecosdiarios' 'castellanos');
 #declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
@@ -48,7 +48,7 @@ do
 
     ii=$i
     if [ $i == "castellanos" ]; then
-      ii=castellanos_dark
+      ii=castellanos_new
     fi
 
     cp $IMAGES/$ii/android/icon.png $FOLDER/res/drawable
