@@ -11,15 +11,22 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.Tracker;
+
+import java.util.HashMap;
+
 public class BaseWebView extends WebView {
 
     private static final String TAG  = "BaseWebView";
+    private Tracker[] mTrackers;
 
     public class MyWebViewClient extends WebViewClient {
 
     private BaseWebView mBase;
     public MyWebViewClient(BaseWebView base) {
       mBase = base;
+      mTrackers = MobiPaperApp.getTracker();
     }
     
     public void onLoadResource(WebView view, String url) {
@@ -28,7 +35,30 @@ public class BaseWebView extends WebView {
     
     public boolean shouldOverrideUrlLoading(WebView view, String url) 
     {
-      return mBase.shouldOverrideUrlLoading(view, url);
+        if(mTrackers != null)
+        {
+            for(int i=0; i<mTrackers.length; i++) {
+
+                HashMap<String, String> hitParameters = new HashMap<String, String>();
+
+                //hitParameters.put(Fields.HIT_TYPE, url.substring(0, url.indexOf("//")+2));
+                hitParameters.put(Fields.HIT_TYPE, "appview");
+
+                if(i == 0) { //somos notrosos
+                    hitParameters.put(Fields.APP_ID, MobiPaperApp.getAppId());
+                    hitParameters.put(Fields.SCREEN_NAME, ScreenManager.smallUrl(url));
+                } else { //son ellos
+                    String toSend = ScreenManager.urlParam(url);
+                    if(toSend.length() == 0)
+                        toSend = url;
+                    hitParameters.put(Fields.SCREEN_NAME, toSend);
+                }
+
+                mTrackers[i].send(hitParameters);
+            }
+        }
+
+        return mBase.shouldOverrideUrlLoading(view, url);
     }
     
     public void onPageFinished(WebView view, String url)

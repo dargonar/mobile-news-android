@@ -79,7 +79,27 @@ public class ScreenManager {
 //  private static String FUNEBRES_URL      = "http://www.eldia.com.ar/mc/fune_rss_utf8.aspx";
 //  private static String CARTELERA_URL     = "http://www.eldia.com.ar/extras/carteleradecine_txt.aspx";
 //  private static String FARMACIAS_URL     = "http://www.eldia.com.ar/extras/farmacias_txt.aspx";
-  
+
+  public static String smallUrl(String url) {
+      if( url.indexOf('?') == -1 )
+        return url;
+
+      return url.substring(0, url.indexOf('?'));
+  }
+    public static String urlParam(String url) {
+        int inx0 = url.indexOf("url=");
+        if(  inx0 == -1 )
+            return "";
+
+        inx0 += 4;
+
+        int inx1 = url.indexOf('&',inx0);
+        if(inx1 == -1)
+            return url.substring(inx0);
+
+        return url.substring(inx0, inx1);
+    }
+
   public String getArticle(String url, boolean useCache) throws IOException, SAXException, ParserConfigurationException, URISyntaxException, NoNetwork {
     return getScreen(url, useCache, true, ScreenManager.ARTICLE_PREFIX);
   }

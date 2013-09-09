@@ -1,6 +1,7 @@
 package com.diventi.mobipaper;
 
 import java.io.File;
+import java.lang.Thread.UncaughtExceptionHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,13 +9,20 @@ import org.json.JSONObject;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.diventi.mobipaper.cache.DiskCache;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Logger.LogLevel;
+import com.google.analytics.tracking.android.Tracker;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 public class MobiPaperApp extends Application {
 
+  public static final String TAG = "MobiPaperApp";
+  
   public static final String mBugsenseApiKey = "8ca8f59d"; //The-mobi-paper
   public static final double MAX_CACHE_SIZE_MB = 15.0;
   
@@ -24,8 +32,8 @@ public class MobiPaperApp extends Application {
   private static String mAppId;
   private static String mMediaVersion;
   private static String   mAdMob = "";
-  private static String[] mGoogleAnalytics = new String[]{""};
-  
+  private static Tracker[] mTrackers = null;
+
   @Override
   public void onCreate() {
     super.onCreate();
@@ -45,8 +53,22 @@ public class MobiPaperApp extends Application {
     mMediaVersion = mDiskCache.getMediaVersion();
     
     loadConfigJson();
+    
+    GoogleAnalytics.getInstance(mContext).getLogger().setLogLevel(LogLevel.VERBOSE);
+    
+//    UncaughtExceptionHandler myHandler = new ExceptionReporter(
+//        GoogleAnalytics.getInstance(this).getDefaultTracker(), // Tracker, may return null if not yet initialized.
+//        GAServiceManager.getInstance(),                        // GAServiceManager singleton.
+//        Thread.getDefaultUncaughtExceptionHandler());          // Current default uncaught exception handler.
+//
+//    // Make myHandler the new default uncaught exception handler.
+//    Thread.setDefaultUncaughtExceptionHandler(myHandler);  
   }
-  
+
+  public static Tracker[] getTracker() {
+      return mTrackers;
+  }
+
   public static void loadConfigJson() {
     try {
 
@@ -60,12 +82,19 @@ public class MobiPaperApp extends Application {
       mAdMob = ((JSONObject)obj.get("android")).getString("ad_mob");
       
       JSONArray arr = ((JSONObject)obj.get("android")).getJSONArray("google_analytics");
+
+//      mTrackers = null;
+//      if(arr != null && arr.length() != 0) {
+//        mTrackers = new Tracker[arr.length()];
+//        for(int i=0; i<arr.length(); i++) {
+//          Log.i(TAG, "Adding tracker =>" + arr.getString(i));
+//          mTrackers[i] = GoogleAnalytics.getInstance(mContext).getTracker(arr.getString(i));
+//          mTrackers[i].set(Fields.SESSION_CONTROL, "start");
+//        }
+//      }
       
-      mGoogleAnalytics = new String[arr.length()];
-      for(int i=0; i<arr.length(); i++)
-      {
-        mGoogleAnalytics[i] = arr.getString(i);
-      }
+      mTrackers = new Tracker[] { GoogleAnalytics.getInstance(mContext).getTracker("UA-32663760-6") };
+      
       
     } catch (JSONException e) {
       
@@ -77,10 +106,6 @@ public class MobiPaperApp extends Application {
     return mAdMob;
   }
 
-  public static String[] getGoogleAnalytics() {
-    return mGoogleAnalytics;
-  }
-  
   public static DiskCache getCache() {
     return mDiskCache;
   }
