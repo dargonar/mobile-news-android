@@ -375,7 +375,7 @@ height:270px;width:480px;
 }
 
 /***** NOTA *****/
-#nota, #nota label, #listado li label  {
+#nota, #nota #titulo, #nota label, #listado li label  {
 	color:#333;
 	font-size: 1em /*14px*/;
 	line-height:1.2em/*16px*/;
@@ -396,11 +396,12 @@ height:270px;width:480px;
 }
 
 #nota a {border:none; text-decoration:none;}
+/*
 #nota a:active, #nota a:active label, #nota a:active div.contenido, #nota a:active h1 {
 	color:#fff;
 	background-color:#666666;
 }
-
+*/
 #nota a img {border:none;}
 
 #nota .contenido {
@@ -596,15 +597,6 @@ CLASIFICADOS
 /* ---------------------------------------- */
 /* BEGIN CASTELLANOS ---------------------- */
 
-.castellanos #nota  .contenido, .castellanos #nota  #titulo h1 {
-  background-color:#0f243f /* 001652 365c8b 0f243f */; /* nuevo:0e2440 oldy:002d58*/
-  color:#FFFFFF!important;
-}
-.castellanos #clasificados .columna .encabezado .rubro, .castellanos  #clasificados .columna .encabezado .titulo ,
-.castellanos #listado li a .seccion , .castellanos  #nota .seccion {
-	/*color:#002d58!important;*/
-  color:#001652!important;
-}
 .castellanos .media_link .ico_video {
   background-image:url(../img/ico_video_castellanos.png) !important;
 }
@@ -624,10 +616,24 @@ CLASIFICADOS
 	background-color:#002d58;
 }
 
+/*
+.castellanos #nota  .contenido, .castellanos #nota  #titulo h1 {
+  background-color:#0f243f 
+  color:#FFFFFF!important;
+} */ /* 001652 365c8b 0f243f */; /* nuevo:0e2440 oldy:002d58*/
+/*
 .castellanos .nota_abierta #nota  .contenido, .castellanos .nota_abierta #nota  #titulo h1 {  background-color:#dfdfdf;  color:#001652!important;}
 .castellanos .nota_abierta #informacion {  color:#111;}
 .castellanos .nota_abierta  .bajada {  color:#111;  font-weight:bold;}
-.castellanos .nota_abierta  .seccion {  color:#001652;  font-weight:bold;}
+.castellanos .nota_abierta  .seccion {  color:#001652;  font-weight:bold; text-transform:uppercase;}
+*/
+.castellanos #clasificados .columna .encabezado .rubro, .castellanos  #clasificados .columna .encabezado .titulo ,
+
+.castellanos #listado li a .seccion , .castellanos  #nota .seccion {
+  
+} 
+/*color:#002d58!important;*/
+.castellanos #listado li a .seccion , .castellanos  #nota .seccion { text-transform:uppercase; color:#0f243f!important;}
 
 /* END CASTELLANOS ------------------------ */
 /* ---------------------------------------- */

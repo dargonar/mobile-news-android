@@ -723,7 +723,6 @@ CLASIFICADOS
 
 /* -------------------------------------------------------------------------------- */
 /* BEGIN CASTELLANOS ---------------------- */
-.castellanos #index .nota_principal .seccion{	color:#e5e7e9;}
 .castellanos #clasificados .columna .encabezado .rubro,
   .castellanos #clasificados .columna .encabezado .titulo,
   .castellanos #clasificados .columna .encabezado .calendario:hover,
@@ -744,6 +743,9 @@ CLASIFICADOS
 .castellanos .media_link .ico_video, .castellanos .media_link .ico_audio, .castellanos .media_link .ico_galeria , .castellanos .media_link .ico_plus {
   background-color:#002d58;
 }
+.castellanos #index .nota_principal .seccion{	color:#e5e7e9;}
+.castellanos #index .nota_principal .seccion,  
+  .castellanos label.seccion{text-transform:uppercase;}
 
 /* END CASTELLANOS ------------------------ */
 /* ---------------------------------------- */
@@ -765,7 +767,7 @@ CLASIFICADOS
   .pregon #menu li a.seccion:hover,
   .pregon #menu li a.seccion:active ,
   .pregon #clasificados .fecha, 
-  .pregon #index .nota_principal .seccion {	color:#1066b0!important;}
+  .pregon #index .nota_principal .seccion {	color:#1066b0;}
 .pregon .media_link .ico_video {  background-image:url(../img/ico_video_pregon.png) !important;}
 .pregon .media_link .ico_plus {	background-image:url(../img/ico_plus_pregon.png) !important;}
 .pregon .media_link .ico_audio {	background-image:url(../img/ico_audio_pregon.png) !important;}
@@ -792,7 +794,7 @@ CLASIFICADOS
   .ecosdiarios #menu li a.seccion:hover,
   .ecosdiarios #menu li a.seccion:active ,
   .ecosdiarios #clasificados .fecha ,
-  .ecosdiarios #index .nota_principal .seccion  {	color:#0c78dc!important;}
+  .ecosdiarios #index .nota_principal .seccion  {	color:#0c78dc;}
 .ecosdiarios .media_link .ico_video {  background-image:url(../img/ico_video_ecosdiarios.png) !important;}
 .ecosdiarios .media_link .ico_plus {	background-image:url(../img/ico_plus_ecosdiarios.png) !important;}
 .ecosdiarios .media_link .ico_audio {	background-image:url(../img/ico_audio_ecosdiarios.png) !important;}
