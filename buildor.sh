@@ -40,11 +40,12 @@ do
       exit -1
     fi
 
+    menem=$i"XXX"
     for f in `find $FOLDER -name *.java | xargs grep -l com.diventi.eldia`; do
-      perl -pi -e "s/com.diventi.eldia/com.diventi.$i_2/g" $f
+      perl -pi -e "s/com.diventi.eldia/com.diventi.$menem/g" $f
     done
 
-    mv $FOLDER/gen/com/diventi/eldia $FOLDER/gen/com/diventi/$i_2
+    mv $FOLDER/gen/com/diventi/eldia $FOLDER/gen/com/diventi/$menem
 
     ii=$i
     if [ $i == "castellanos" ]; then
