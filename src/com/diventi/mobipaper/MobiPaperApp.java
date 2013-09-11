@@ -49,7 +49,11 @@ public class MobiPaperApp extends Application {
     
     mYoutubeInstalled = isAppInstalled("com.google.android.youtube");
     
-    mAppId = getApplicationInfo().packageName;
+    String tmp = getApplicationInfo().packageName;
+    if(tmp.endsWith("_2"))
+      tmp = tmp.substring(0,tmp.length()-2);
+    
+    mAppId = tmp;
     mMediaVersion = mDiskCache.getMediaVersion();
     
     loadConfigJson();

@@ -4,8 +4,8 @@ IMAGES=../MobiPaperiOS/ElDia/images/
 #declare -a apps=('eldia' 'pregon' 'ecosdiarios' 'castellanos');
 #declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
 
-#declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos');
-#declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
+declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos');
+declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
 
 #declare -a apps=('eldia'  'pregon');
 #declare -a desc=('El Dia' 'Pregon');
@@ -13,8 +13,8 @@ IMAGES=../MobiPaperiOS/ElDia/images/
 #declare -a apps=('castellanos');
 #declare -a desc=('Castellanos');
 
-declare -a apps=('eldia');
-declare -a desc=('El Dia');
+#declare -a apps=('eldia');
+#declare -a desc=('El Dia');
 
 total=${#apps[*]}
 
@@ -41,10 +41,10 @@ do
     fi
 
     for f in `find $FOLDER -name *.java | xargs grep -l com.diventi.eldia`; do
-      perl -pi -e "s/com.diventi.eldia/com.diventi.$i/g" $f
+      perl -pi -e "s/com.diventi.eldia/com.diventi.$i_2/g" $f
     done
 
-    mv $FOLDER/gen/com/diventi/eldia $FOLDER/gen/com/diventi/$i
+    mv $FOLDER/gen/com/diventi/eldia $FOLDER/gen/com/diventi/$i_2
 
     ii=$i
     if [ $i == "castellanos" ]; then
