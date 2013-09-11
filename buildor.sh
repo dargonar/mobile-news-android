@@ -40,7 +40,7 @@ do
       exit -1
     fi
 
-    menem=$i"XXX"
+    menem=$i"2"
     for f in `find $FOLDER -name *.java | xargs grep -l com.diventi.eldia`; do
       perl -pi -e "s/com.diventi.eldia/com.diventi.$menem/g" $f
     done
@@ -71,7 +71,7 @@ do
     perl -pi -e "s/ElDia/$d/g" $FOLDER/build.xml
     
     perl -pi -e "s/El Dia/$d/g" $FOLDER/AndroidManifest.xml
-    perl -pi -e "s/com.diventi.eldia/com.diventi.$i/g" $FOLDER/AndroidManifest.xml
+    perl -pi -e "s/com.diventi.eldia/com.diventi.$menem/g" $FOLDER/AndroidManifest.xml
 
   fi
 
