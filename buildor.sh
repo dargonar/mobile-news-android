@@ -4,14 +4,17 @@ IMAGES=../MobiPaperiOS/ElDia/images/
 #declare -a apps=('eldia' 'pregon' 'ecosdiarios' 'castellanos');
 #declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
 
-declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos');
-declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
+#declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos');
+#declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
 
 #declare -a apps=('eldia'  'pregon');
 #declare -a desc=('El Dia' 'Pregon');
 
-#declare -a apps=('pregon');
-#declare -a desc=('Pregon');
+#declare -a apps=('castellanos');
+#declare -a desc=('Castellanos');
+
+declare -a apps=('eldia');
+declare -a desc=('El Dia');
 
 total=${#apps[*]}
 
@@ -43,13 +46,13 @@ do
 
     mv $FOLDER/gen/com/diventi/eldia $FOLDER/gen/com/diventi/$i
 
-    cp $IMAGES/$i/logo.png $FOLDER/res/drawable/logo.png
-    cp $IMAGES/$i/logo@2x.png $FOLDER/res/drawable/logo_solo.png
-
     ii=$i
     if [ $i == "castellanos" ]; then
       ii=castellanos_new
     fi
+
+    cp $IMAGES/$ii/logo.png $FOLDER/res/drawable/logo.png
+    cp $IMAGES/$ii/logo@2x.png $FOLDER/res/drawable/logo_solo.png
 
     cp $IMAGES/$ii/android/icon.png $FOLDER/res/drawable
     cp $IMAGES/$ii/android/back.png $FOLDER/res/drawable
