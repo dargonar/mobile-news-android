@@ -602,6 +602,14 @@ CLASIFICADOS
 #clasificados .hora { color:#666;}
 #clasificados .clear { clear:both; margin-bottom:10px;}
 
+.cartelera_item{
+  border-bottom:#ccc solid 1px;
+	margin:10px;
+  font-size:1.05em;
+}
+.cartelera_item p.carte_title{font-size:1.5em; line-height:1em;}
+.cartelera_item p.carte_desc{font-size:1.1em; line-height:1em;}
+
 #clasificados .columna {
 	/*width:240px;*/
   /*width:240px;*/
@@ -627,7 +635,7 @@ CLASIFICADOS
 }
 
 #clasificados .columna .aviso.clasi p, #clasificados .columna .aviso.fune p{ font-size:1.5em;}
-
+#clasificados .columna .aviso.clasi span.right {float:right; color:#0066cc;}
 #clasificados .columna .encabezado {
 	border-bottom:#ccc solid 1px;
 	margin:10px;
@@ -805,3 +813,60 @@ CLASIFICADOS
 /* END ECOS ----------------------------- */
 /* ---------------------------------------- */
 /* ---------------------------------------- */
+
+/* -------------------------------------------------------------------------------- */
+.lareforma #clasificados .columna .encabezado .rubro,
+  .lareforma #clasificados .columna .encabezado .titulo,
+  /*.ecosdiarios #clasificados .columna .encabezado .calendario:hover,*/
+  .lareforma .seccion,
+  .lareforma #index .menu li .selected,
+  .lareforma #index .menu li a:active,
+  .lareforma #landscape .menu li a:active ,
+  .lareforma #landscape .menu li .selected ,
+  .lareforma #menu li a:active,
+  .lareforma #menu li.selected ,
+  .lareforma #menu li a.seccion:hover,
+  .lareforma #menu li a.seccion:active ,
+  .lareforma #clasificados .fecha ,
+  .lareforma #index .nota_principal .seccion  {	color:#FFFFFF;}
+.lareforma .media_link .ico_video {  background-image:url(../img/ico_video_lareforma.png) !important;}
+.lareforma .media_link .ico_plus {	background-image:url(../img/ico_plus_lareforma.png) !important;}
+.lareforma .media_link .ico_audio {	background-image:url(../img/ico_audio_lareforma.png) !important;}
+.lareforma .media_link .ico_galeria {  background-image:url(../img/ico_galeria_lareforma.png) !important;}
+.lareforma .media_link .ico_video, .lareforma .media_link .ico_audio, .lareforma .media_link .ico_galeria , .lareforma .media_link .ico_plus {
+  background-color:#1065b0;
+}
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+
+/* -------------------------------------------------------------------------------- */
+.elnorte #clasificados .columna .encabezado .rubro,
+  .elnorte #clasificados .columna .encabezado .titulo,
+  /*.ecosdiarios #clasificados .columna .encabezado .calendario:hover,*/
+  .elnorte .seccion,
+  .elnorte #index .menu li .selected,
+  .elnorte #index .menu li a:active,
+  .elnorte #landscape .menu li a:active ,
+  .elnorte #landscape .menu li .selected ,
+  .elnorte #menu li a:active,
+  .elnorte #menu li.selected ,
+  .elnorte #menu li a.seccion:hover,
+  .elnorte #menu li a.seccion:active ,
+  .elnorte #clasificados .fecha ,
+  .elnorte #index .nota_principal .seccion  { color:#386b98;}
+.elnorte .media_link .ico_video {  background-image:url(../img/ico_video_elnorte.png) !important;}
+.elnorte .media_link .ico_plus {  background-image:url(../img/ico_plus_elnorte.png) !important;}
+.elnorte .media_link .ico_audio { background-image:url(../img/ico_audio_elnorte.png) !important;}
+.elnorte .media_link .ico_galeria {  background-image:url(../img/ico_galeria_elnorte.png) !important;}
+.elnorte .media_link .ico_video, .elnorte .media_link .ico_audio, .elnorte .media_link .ico_galeria , .elnorte .media_link .ico_plus {
+  background-color:#0088cd;
+  /*#006699
+  #044364
+  #386b98*/
+}
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+body.body660 {width:660px!important;}
+body.body660  #index .nota_abierta .fila .imagen{margin-left:0px!important; margin-right:16px!important; float:left;}

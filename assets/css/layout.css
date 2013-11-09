@@ -521,6 +521,13 @@ CLASIFICADOS
 	padding:0px 0px 0px 0px;
 
 }
+.cartelera_item{
+  border-bottom:#ccc solid 1px;
+	margin:10px;
+  font-size:1.05em;
+}
+.cartelera_item p.carte_title{font-size:1.5em; line-height:1em;margin-bottom:10px;}
+.cartelera_item p.carte_desc{font-size:1.1em; line-height:1em;}
 
 #clasificados .columna .aviso {
   color:#333;
@@ -565,6 +572,13 @@ CLASIFICADOS
 }
 
 #clasificados .columna .encabezado .rubro {
+	color:#0066cc;
+	font-size:30px;
+	line-height:30px;
+	margin-bottom:5px;
+}
+
+#clasificados .columna  .rubroex {
 	color:#0066cc;
 	font-size:30px;
 	line-height:30px;
@@ -693,5 +707,53 @@ CLASIFICADOS
 	background-color:#3c3838;
 }
 /* END ECOS ----------------------------- */
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.lareforma #clasificados .columna .encabezado .rubro, .lareforma #clasificados .columna .encabezado .titulo ,
+.lareforma #listado li a .seccion , .lareforma  #nota .seccion {	color:#1065b0!important;}
+.lareforma .media_link .ico_video {
+  background-image:url(../img/ico_video_lareforma.png) !important;
+}
+.lareforma .media_link .ico_plus {
+	background-image:url(../img/ico_plus_lareforma.png) !important;
+}
+.lareforma .media_link .ico_audio {
+	background-image:url(../img/ico_audio_lareforma.png) !important;
+}
+.lareforma .media_link .ico_galeria {
+  background-image:url(../img/ico_galeria_lareforma.png) !important;
+}
+.lareforma .media_link .ico_video, .lareforma .media_link .ico_audio, .lareforma .media_link .ico_galeria , .lareforma .media_link .ico_plus {
+  background-color:#1065b0;
+}
+.lareforma #titulo_seccion {
+	background-color:#1065b0;
+}
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.elnorte #clasificados .columna .encabezado .rubro, .elnorte #clasificados .columna .encabezado .titulo ,
+.elnorte #listado li a .seccion , .elnorte  #nota .seccion {  color:#386b98!important;}
+.elnorte .media_link .ico_video {
+  background-image:url(../img/ico_video_elnorte.png) !important;
+}
+.elnorte .media_link .ico_plus {
+  background-image:url(../img/ico_plus_elnorte.png) !important;
+}
+.elnorte .media_link .ico_audio {
+  background-image:url(../img/ico_audio_elnorte.png) !important;
+}
+.elnorte .media_link .ico_galeria {
+  background-image:url(../img/ico_galeria_elnorte.png) !important;
+}
+.elnorte .media_link .ico_video, .elnorte .media_link .ico_audio, .elnorte .media_link .ico_galeria , .elnorte .media_link .ico_plus {
+  background-color:#0088cd;
+}
+.elnorte #titulo_seccion {
+  background-color:#0088cd;
+}
 /* ---------------------------------------- */
 /* ---------------------------------------- */
