@@ -1,20 +1,11 @@
 # Metabuild de apps android
 IMAGES=../MobiPaperiOS/ElDia/images/
 
-#declare -a apps=('eldia' 'pregon' 'ecosdiarios' 'castellanos');
-#declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
+declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos' 'lareforma'  'elnorte');
+declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos' 'La Reforma' 'El Norte');
 
-declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos');
-declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos');
-
-#declare -a apps=('eldia'  'pregon');
-#declare -a desc=('El Dia' 'Pregon');
-
-#declare -a apps=('castellanos');
-#declare -a desc=('Castellanos');
-
-#declare -a apps=('eldia');
-#declare -a desc=('El Dia');
+#declare -a apps=('lareforma'  'elnorte');
+#declare -a desc=('La Reforma' 'El Norte');
 
 total=${#apps[*]}
 
@@ -79,8 +70,7 @@ do
   ant $1
 
   if [ $? -eq 0 ]; then
-    NAME=`echo "$d" | sed 's/ //g'`
-    cp bin/$NAME-$1.apk ../apks-to-upload
+    cp "bin/$d-$1.apk" ../apks-to-upload
   fi
 
   cd ..

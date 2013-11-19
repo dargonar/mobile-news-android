@@ -12,9 +12,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.Tracker;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class BaseWebView extends WebView {
 
@@ -39,21 +41,17 @@ public class BaseWebView extends WebView {
         {
             for(int i=0; i<mTrackers.length; i++) {
 
-                HashMap<String, String> hitParameters = new HashMap<String, String>();
-
-                hitParameters.put(Fields.HIT_TYPE, url.substring(0, url.indexOf("//")+2));
-
+                Map<String,String> ev;
                 if(i == 0) { //somos notrosos
-                    hitParameters.put(Fields.APP_ID, MobiPaperApp.getAppId());
-                    hitParameters.put(Fields.SCREEN_NAME, ScreenManager.smallUrl(url));
+                  ev = MapBuilder.createEvent("ui_action", "button_press" , ScreenManager.smallUrl(url), (long) 0).build();
                 } else { //son ellos
                     String toSend = ScreenManager.urlParam(url);
                     if(toSend.length() == 0)
                         toSend = url;
-                    hitParameters.put(Fields.SCREEN_NAME, toSend);
+                    ev = MapBuilder.createEvent("ui_action", "button_press" , toSend, (long) 0).build();
                 }
 
-                mTrackers[i].send(hitParameters);
+                mTrackers[i].send(ev);
             }
         }
 
