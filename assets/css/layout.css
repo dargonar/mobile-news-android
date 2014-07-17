@@ -100,7 +100,7 @@ img {
 /***** MENU *****/
 #menu {
 	/*height:480px;*/
-  /*height:416px;*/
+  height:416px;
 	background-color:#323232;
 /*  width:265px;*/
   width:276px;
@@ -604,7 +604,7 @@ CLASIFICADOS
   text-align:right; 
   display:none; 
   position:absolute;
-  /*top:0px;*/
+  top:0px;
   z-index:3;
 }
 
@@ -754,6 +754,30 @@ CLASIFICADOS
 }
 .elnorte #titulo_seccion {
   background-color:#0088cd;
+}
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.puertonegocios #clasificados .columna .encabezado .rubro, .puertonegocios #clasificados .columna .encabezado .titulo ,
+.puertonegocios #listado li a .seccion , .puertonegocios  #nota .seccion {  color:#ae0a17!important;}
+.puertonegocios .media_link .ico_video {
+  background-image:url(../img/ico_video_puertonegocios.png) !important;
+}
+.puertonegocios .media_link .ico_plus {
+  background-image:url(../img/ico_plus_puertonegocios.png) !important;
+}
+.puertonegocios .media_link .ico_audio {
+  background-image:url(../img/ico_audio_puertonegocios.png) !important;
+}
+.puertonegocios .media_link .ico_galeria {
+  background-image:url(../img/ico_galeria_puertonegocios.png) !important;
+}
+.puertonegocios .media_link .ico_video, .puertonegocios .media_link .ico_audio, .puertonegocios .media_link .ico_galeria , .puertonegocios .media_link .ico_plus {
+  background-color:#ae0a17;
+}
+.puertonegocios #titulo_seccion {
+  background-color:#d90000;
 }
 /* ---------------------------------------- */
 /* ---------------------------------------- */
