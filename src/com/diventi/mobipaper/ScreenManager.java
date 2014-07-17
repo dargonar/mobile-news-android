@@ -175,9 +175,9 @@ public class ScreenManager {
                 MobiPaperApp.getMediaVersion()
     );
 
-    URL url = new URL("http://www.diariosmoviles.com.ar/ws/screen");
+    //URL url = new URL("http://www.diariosmoviles.com.ar/ws/screen");
     
-    //URL url = new URL("http://192.168.1.14:8080/ws/screen");
+    URL url = new URL("http://10.0.0.3:8080/ws/screen");
     
     HttpURLConnection con = (HttpURLConnection)url.openConnection();
     

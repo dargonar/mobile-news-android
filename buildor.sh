@@ -1,11 +1,11 @@
 # Metabuild de apps android
 IMAGES=../MobiPaperiOS/ElDia/images/
 
-declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos' 'lareforma'  'elnorte');
-declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos' 'La Reforma' 'El Norte');
+#declare -a apps=('eldia'  'pregon' 'ecosdiarios' 'castellanos' 'lareforma'  'elnorte');
+#declare -a desc=('El Dia' 'Pregon' 'EcosDiarios' 'Castellanos' 'La Reforma' 'El Norte');
 
-#declare -a apps=('lareforma'  'elnorte');
-#declare -a desc=('La Reforma' 'El Norte');
+declare -a apps=('puertonegocios');
+declare -a desc=('Puerto Negocios');
 
 total=${#apps[*]}
 
