@@ -77,8 +77,8 @@ public class HomeWebView extends BaseWebView
     {
       Log.e("HOMEWEBVIEW", "levanto....");
       
-      Intent viewFileIntent = new Intent(Intent.ACTION_VIEW);
-      viewFileIntent.setDataAndType( Uri.parse(url), "application/pdf");
+      Intent viewFileIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+      //viewFileIntent.setDataAndType( Uri.parse(url), "application/pdf");
       mContext.startActivity(viewFileIntent);
       
       Log.e("HOMEWEBVIEW", "salgo....");
